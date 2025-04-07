@@ -1,0 +1,11 @@
+{
+  "name": "blog-web-app",
+  "version": "1.0.0",
+  "description": "A Blog web application using Node.js, Express.js, and EJS. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kerrion Siokwu",
+  "license": "ISC"
+}
