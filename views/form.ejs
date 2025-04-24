@@ -1,0 +1,41 @@
+<%- include("partials/header.ejs") %>
+
+<main class="container-fluid main-content">
+  <h1>Create Post</h1>  
+
+  <div>
+    <form action="/form" method="POST">
+      <div class="mb-3">
+        <label for="title" class="form-label">Post Title</label>
+        <input type="text" class="form-control" id="title" name="title" required placeholder="Enter post title">
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select id="category" name="category" class="form-control">
+          <option value="" disabled selected>Select a category</option>
+          <option value="work-life-balance">Work-Life Balance</option>
+          <option value="productivity">Productivity</option>
+          <option value="finance">Finance</option>
+          <option value="self-care">Self Care</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Cover Image URL</label>
+        <input type="url" class="form-control" id="image" name="image" placeholder="https://example.com/image.jpg">
+      </div>
+      <div class="mb-3">
+        <label for="excerpt" class="form-label">Excerpt</label>
+        <input type="text" class="form-control" id="excerpt" name="excerpt" required placeholder="Brief summary of the post">
+      </div>
+      <div class="mb-3">
+        <label for="content" class="form-label">Post Content</label>
+        <textarea class="form-control" id="content" name="content" rows="5" required placeholder="Write your post content here..."></textarea>
+      </div>
+      <div class="mt-5">
+        <button type="submit" class="btn btn-warning btn-lg publish-btn">Publish Post</button>
+        <button type="submit" class="btn btn-outline-warning btn-lg">Save as Draft</button>
+      </div>
+      
+    </form>
+  </div>
+<%- include("partials/footer.ejs") %>

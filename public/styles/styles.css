@@ -1,0 +1,111 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap"); */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+}
+main {
+  padding: 5rem;
+}
+footer {
+  background-color: #232c37;
+  color: #fff;
+  padding: 5rem 0;
+}
+.main-content {
+  padding: 2rem;
+}
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #36454F;
+}
+.unpaid {
+  /* color: #008080; */
+  color: #4ecdc4;
+}
+.nav-link {
+  font-size: 1.2rem;
+  font-weight: normal;
+  color: #36454F;
+}
+.hero {
+  background-color: #232c37;
+  color: #fff;
+  padding: 5rem 0;
+}
+.btn-warning {
+  background-color: #4ecdc4;
+  color: #fff;
+  border-color: #4ecdc4;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  font-weight: normal;
+  cursor: pointer;
+}
+.btn-outline-warning {
+  background-color: none;
+  color: #36454F;
+  border: solid 5px #4ecdc4;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  font-weight: normal;
+  cursor: pointer;
+}
+.hero-outline-btn {
+  color: #fff;
+}
+.publish-btn {
+  margin-right: 1rem;
+}
+.view-all {
+  color: #4ecdc4;
+  font-size: 1.2rem;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+/* body {
+  /* background: #222; *
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+    helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
+  color: hotpink;
+}
+
+main {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+
+input {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  font-size: 0.9rem;
+  background: #888;
+  padding: 1rem;
+  color: white;
+  cursor: pointer;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+ */
