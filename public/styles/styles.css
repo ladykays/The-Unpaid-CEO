@@ -6,8 +6,8 @@
   box-sizing: border-box;
   font-family: Inter, sans-serif;
 }
-main {
-  padding: 5rem;
+section {
+  padding: 5rem 0;
 }
 footer {
   background-color: #232c37;
@@ -22,9 +22,18 @@ footer {
   font-weight: 700;
   color: #36454F;
 }
-.unpaid {
+.teal {
   /* color: #008080; */
   color: #4ecdc4;
+}
+.our-values {
+  background-color: #f7f7f7;
+}
+.centered-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #36454F;
 }
 .nav-link {
   font-size: 1.2rem;
@@ -43,6 +52,16 @@ footer {
   border-radius: 10px;
   padding: 1rem 2rem;
   font-size: 1.5rem;
+  font-weight: normal;
+  cursor: pointer;
+}
+.btn-warning-sm {
+  background-color: #4ecdc4;
+  color: #fff;
+  border-color: #4ecdc4;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
   font-weight: normal;
   cursor: pointer;
 }
@@ -68,6 +87,33 @@ footer {
   font-weight: normal;
   cursor: pointer;
 }
+.category {
+  background: #f8c4c4;
+  width: fit-content;
+  border-radius: 2rem;
+  padding: 0 .7rem;
+  margin-bottom: 1rem;
+}
+.newsletter {
+  background-color: #fbf1f1;
+}
+.card {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.social-icon {
+  /* color: #36454F; */
+  color: #4ecdc4;
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+.contact-icon {
+  background-color: #f0faf9;
+  border-radius: 50%;
+  padding: 1rem;
+  width: fit-content;
+  height: fit-content;
+}
+
 
 /* body {
   /* background: #222; *
