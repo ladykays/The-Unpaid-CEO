@@ -10,7 +10,7 @@ app.use(express.static('public')); // Serve static files from the "public" direc
 app.use(express.urlencoded({ extended: true })); // To parse form data
 app.set('view engine', 'ejs'); // Set EJS as the templating engine
 
-// Helper function to get posts from JSON file
+// Function to get posts from JSON file
 async function getPosts() {
   try {
     const data = await fs.readFile(POSTS_FILE, 'utf-8');
@@ -46,6 +46,29 @@ async function saveContactForm(data) {
     // If the file doesn't exist, create it with the new data
     await fs.writeFile('contact.json', JSON.stringify([data], null, 2));
     console.log('Contact form data saved.');
+  }
+}
+
+// Function to save subscription form data
+async function saveSubscriptionForm(data) {
+  try {
+    // read existing subscription data from JSON file if it exists
+    const subscriptionData = await fs.readFile('subscriptions.json', 'utf-8');
+
+    // Parse the existing data into an array
+    const subscriptions = JSON.parse(subscriptionData);
+
+    // Add the new subscription data to the array
+    subscriptions.push(data);
+
+    // Write the updated array back to the JSON file with proper formatting
+    await fs.writeFile('subscriptions.json', JSON.stringify (subscriptions, null, 2));  
+  } catch (error) {
+    console.error('Error saving subscription form data:', error);
+
+    // If the file doesn't exist, create it with the new data
+    await fs.writeFile('subscriptions.json', JSON.stringify([data], null, 2));
+    console.log('Subscription form data saved.');
   }
 }
 
@@ -137,6 +160,34 @@ app.post('/contact', (req, res) => {
       // If saving fails:
       console.error('Error saving contact form data:', error);
       res.status(500).send('Error saving your contact form data');
+    });
+});
+
+// Handle POST requests to the `/subscribe` endpoint
+app.post('/subscribe', (req, res) => {
+  // Destructure the subscription form data from the request body
+  const { email } = req.body;
+
+  // Create a subscription data object with the email field
+  const subscriptionData = {
+    email,
+    timestamp: new Date().toISOString(), // Add a timestamp for when the form was submitted
+  };
+
+  // Call the saveSubscriptionForm function to store the subscription data
+  saveSubscriptionForm(subscriptionData)
+    .then(() => {
+      // On successful save:
+      console.log(`Subscription form submitted: Email: ${email}`);
+
+      // Render the thank you page
+      res.render('thanks.ejs');
+      
+    })
+    .catch((error) => {
+      // If saving fails:
+      console.error('Error saving subscription form data:', error);
+      res.status(500).send('Error saving your subscription form data');
     });
 });
 
