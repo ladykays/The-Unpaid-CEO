@@ -113,6 +113,9 @@ footer {
   width: fit-content;
   height: fit-content;
 }
+.text-body-secondary {
+  color: #666869;
+}
 
 
 /* body {

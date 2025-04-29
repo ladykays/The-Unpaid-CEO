@@ -1,7 +1,5 @@
 import express from 'express';
 import fs from 'fs/promises'; //for file operations
-import methodOverride from 'method-override'; //for DELETE method
-
 
 const app = express();
 const port = 3000;
@@ -10,8 +8,7 @@ const POSTS_FILE = 'posts.json'; // File to store posts
 // Middleware
 app.use(express.static('public')); // Serve static files from the "public" directory
 app.use(express.urlencoded({ extended: true })); // To parse form data
-app.use(methodOverride('_method')); // Install method-override in order for the DELETE method to work
-app.set('view engine', 'ejs'); // Set EJS as the templating engine
+
 
 
 // Function to get posts from JSON file
