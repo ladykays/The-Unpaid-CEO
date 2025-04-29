@@ -1,24 +1,23 @@
 <section class="row row-cols-1 row-cols-md-3 g-4">
   <% if (typeof posts !== 'undefined' && posts.length) { %>
     <% posts.forEach(post => { %>
-  <div class="col mb-4 mb-md-0">
-    
-    <div class="card h-100">
-      <img src="<%= post.image || '...' %>" class="card-img-top" alt="...">
-      <div class="card-body">
-        <div class="category"><%= post.category.replace(/\w\S*/g, function(txt) {
-          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-        }) %></div>
-        <h5 class="card-title"><%= post.title %></h5>
-        <p class="card-text"><%= post.excerpt %>...</p>
-        <a href="#" class="btn btn-warning-sm">Read more</a>
+      <div class="col mb-4 mb-md-0">
+        <div class="card h-100">
+          <img src="<%= post.image || '...' %>" class="card-img-top" alt="...">
+          <div class="card-body">
+            <div class="category"><%= post.category.replace(/\w\S*/g, function(txt) {
+              return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            }) %></div>
+            <h5 class="card-title"><%= post.title %></h5>
+            <p class="card-text"><%= post.excerpt %>...</p>
+            <a href="#" class="btn btn-warning-sm">Read more</a>
+          </div>
+          <div class="card-footer">
+            <small class="text-body-secondary">Posted <%= new Date(post.createdAt).toLocaleDateString() %></small>
+          </div>
+        </div>
       </div>
-      <div class="card-footer">
-        <small class="text-body-secondary">Posted <%= new Date(post.createdAt).toLocaleDateString() %></small>
-      </div>
-    </div>
-  </div>
-  <% }); %>
+    <% }); %>
   <% } else { %>
     <p>No posts yet. Be the first to create one!</p>
   <% } %>

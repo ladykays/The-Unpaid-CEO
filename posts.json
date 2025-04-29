@@ -1,13 +1,5 @@
 [
   {
-    "title": "Test",
-    "category": "finance",
-    "image": "/images/default.jpg",
-    "excerpt": "This is a test",
-    "content": "This is ......",
-    "createdAt": "2025-04-25T11:27:48.579Z"
-  },
-  {
     "title": "Captivating in Blue: A Moment of Timeless Elegance 💙",
     "category": "self-care",
     "image": "https://st2.depositphotos.com/1003368/9856/i/950/depositphotos_98563428-stock-photo-woman-in-blue-dress.jpg",
@@ -30,5 +22,14 @@
     "excerpt": "Being a stay-at-home mum (SAHM) is one of the most rewarding yet underrated jobs in the world",
     "content": "Being a stay-at-home mum (SAHM) is one of the most rewarding yet underrated jobs in the world. There are no paychecks, no promotions, and definitely no sick days—but there’s an abundance of love, laughter, and tiny hands tugging at your clothes.\r\n\r\nMorning Madness\r\n\r\nThe day starts before the sun even thinks about rising. A little voice (or a full-blown toddler scream) announces it’s time to wake up. Breakfast is served—sometimes it’s pancakes, sometimes it’s cereal straight from the box. Priorities shift when survival is key.\r\n\r\nThe Never-Ending To-Do List\r\n\r\nBetween diaper changes, snack negotiations, and refereeing sibling wars, there’s laundry that never stops multiplying, dishes that magically reappear, and a floor that somehow collects crumbs like it’s its sole purpose in life. And just when you think you’ve cleaned everything, someone spills juice. Again.\r\n\r\nMom’s \"Break\" (A.K.A. Multitasking Olympics)\r\n\r\nNap time? That’s code for \"sprint through chores, scarf down coffee, and maybe—just maybe—sit for five minutes.\" The second you relax, tiny feet come running. The universe has a funny way of reminding you that silence is suspicious.\r\n\r\nThe Invisible Struggles\r\n\r\nIt’s not all cuddles and playdates. There are moments of loneliness, exhaustion, and wondering if anyone notices the effort you pour into every little thing. But then, a sticky-handed hug or an unexpected \"I love you, Mummy\" makes it all worth it.\r\n\r\nThe Unseen Superpower\r\n\r\nSAHMs are chefs, nurses, teachers, negotiators, and therapists—all before lunch. The job description changes by the minute, but the love is constant. There’s no clocking out, but there’s also no greater privilege than watching your little ones grow every single day.\r\n\r\nTo every stay-at-home mum: You’re not \"just\" a mum—you’re the heartbeat of your home. 💛\r\n\r\nWhat’s your favourite (or funniest) part of being a SAHM? Share your stories below! 👇 #StayAtHomeMum #MotherhoodUnfiltered #MomLife",
     "createdAt": "2025-04-25T12:32:36.160Z"
+  },
+  {
+    "id": "1745931411943",
+    "title": "A Sunny Day",
+    "category": "work-life-balance",
+    "image": "https://www.braverlaw.net/wp-content/uploads/2016/04/sunny-day.jpg",
+    "excerpt": "Sunlight poured over the city like melted gold, turning every moment into something bright and fleeting.",
+    "content": "The morning sun spilled golden over the rooftops, painting the world in warm, honeyed light. Birds darted between the trees, their songs bright and carefree, while a gentle breeze carried the scent of freshly cut grass. The sky stretched endlessly blue, not a single cloud daring to intrude.\r\n\r\nOn the sidewalk, children laughed as they chased ice cream trucks, their shadows dancing beside them. Neighbors chatted over fences, sunglasses glinting, and somewhere nearby, a radio played a cheerful tune. It was the kind of day that made worries feel small—a day meant for bare feet, cold lemonade, and the simple joy of sunlight on skin.\r\n\r\nThe world, for just this moment, was perfect.",
+    "createdAt": "2025-04-29T12:56:51.943Z"
   }
 ]
