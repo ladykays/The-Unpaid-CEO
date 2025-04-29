@@ -1,19 +1,49 @@
 <section class="row row-cols-1 row-cols-md-3 g-4">
   <% if (typeof posts !== 'undefined' && posts.length) { %>
-    <% posts.forEach(post => { %>
-      <div class="col mb-4 mb-md-0">
+    <% posts.forEach((post, index) => { %>
+      <div class="col mb-4 mb-md-4">
         <div class="card h-100">
-          <img src="<%= post.image || '...' %>" class="card-img-top" alt="...">
+          <% if (isHyperlink) { %>
+            <a href="/posts/<%= post.id %>" class="card-link">
+              <img src="<%= post.image || '...' %>" class="card-img-top" alt="...">
+            </a>
+          <% } else { %>
+            <img src="<%= post.image || '...' %>" class="card-img-top" alt="...">
+          <% } %>
+          
           <div class="card-body">
             <div class="category"><%= post.category.replace(/\w\S*/g, function(txt) {
               return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
             }) %></div>
-            <h5 class="card-title"><%= post.title %></h5>
+            <% if (isHyperlink) { %>
+              <a href="/posts/<%= post.id %>" class="card-link">
+                <h5 class="card-title"><%= post.title %></h5>
+              </a>
+            <% } else { %>
+              <h5 class="card-title"><%= post.title %></h5>
+            <% } %>
             <p class="card-text"><%= post.excerpt %>...</p>
-            <a href="#" class="btn btn-warning-sm">Read more</a>
+            
+
+            <%# conditionally display `Read more`, `Edit` and `Delete` buttons depending on the page %>
+            <% if (showActions) { %>
+              <div class="mt-2">
+                <a href="/posts/edit/<%= post.id %>" class="btn btn-outline-warning btn-sm">Edit</a>
+                <form action="/posts/delete/<%= post.id %>" method="POST" class="d-inline">
+                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+              </div>
+            <% } else { %>
+              <a href="#" class="btn btn-warning-sm">Read more</a>
+            <% } %>
           </div>
           <div class="card-footer">
-            <small class="text-body-secondary">Posted <%= new Date(post.createdAt).toLocaleDateString() %></small>
+            <small class="text-body-secondary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar4" viewBox="0 0 16 16">
+                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+              </svg> 
+
+              <%= new Date(post.createdAt).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}) %></small>
           </div>
         </div>
       </div>

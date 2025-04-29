@@ -83,7 +83,11 @@ async function saveSubscriptionForm(data) {
       const posts = await getPosts();
       // Get the most recent posts (or all if less than 3)
       const recentPosts = posts.slice(-3).reverse(); //Can change this to featured posts 
-      res.render('index.ejs', { posts: recentPosts });
+      res.render('index.ejs', { 
+        posts: recentPosts,
+        showActions: false, // Hide edit/delete buttons
+        isHyperlink: false, // Hide hyperlinks
+       });
     } catch (error) {
       console.error('Error fetching posts:', error);
       res.render('index.ejs', { posts: [] });
@@ -123,7 +127,11 @@ async function saveSubscriptionForm(data) {
       // Render the posts page with the sorted posts
       //console.log({posts});
       console.log('Posts with IDs:', posts.map(p => ({id: p.id, title: p.title})));
-      res.render('posts.ejs', { posts });
+      res.render('posts.ejs', { 
+        posts,
+        showActions: true, // Show edit/delete buttons
+        isHyperlink: true, // Show hyperlinks
+       });
     } catch (error) {
       console.error('Error fetching posts:', error);
       res.render('posts.ejs', { posts: [] });
