@@ -12,9 +12,13 @@
           <% } %>
           
           <div class="card-body">
-            <div class="category"><%= post.category.replace(/\w\S*/g, function(txt) {
-              return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-            }) %></div>
+            <div class="category">
+              
+                <%= post.category.replace(/\w\S*/g, function(txt) {
+                  return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                }) %>
+              
+            </div>
             <% if (isHyperlink) { %>
               <a href="/posts/<%= post.id %>" class="card-link">
                 <h5 class="card-title"><%= post.title %></h5>
@@ -34,7 +38,7 @@
                 </form>
               </div>
             <% } else { %>
-              <a href="#" class="btn btn-warning-sm">Read more</a>
+              <a href="/posts/<%= post.id %>" class="btn btn-warning-sm">Read more</a>
             <% } %>
           </div>
           <div class="card-footer">
@@ -43,7 +47,9 @@
                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
               </svg> 
 
-              <%= new Date(post.createdAt).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}) %></small>
+              <%= new Date(post.createdAt).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}) %>
+              <%= post.readingTime %> min read
+            </small>
           </div>
         </div>
       </div>

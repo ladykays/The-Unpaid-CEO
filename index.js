@@ -76,6 +76,16 @@ async function saveSubscriptionForm(data) {
   }
 }
 
+// Function to calculate reading time in minutes
+function calculateReadingTime(content) {
+  const WORDS_PER_MINUTE = 200; // Average reading speed
+
+  const text = content.replace(/<[^>]*>/g, ''); // Remove HTML tags
+  const wordCount = text.trim().split(/\s+/).length; // Count words
+  const readingTime = Math.ceil(wordCount / WORDS_PER_MINUTE); // Calculate reading time in minutes
+  return readingTime;
+};
+
 /*  Routes */
   // Get Routes
   app.get('/', async(req, res) => {
@@ -165,13 +175,12 @@ async function saveSubscriptionForm(data) {
       try {
         const posts = await getPosts();
         const newPost = { 
+          ...req.body, // Spread operator to include all fields from the form
           id: Date.now().toString(), // Unique ID based on timestamp
-          title, 
-          category, 
+          category: category || 'Uncategorized', // Default category if none provided
           image: image || '/images/default.jpg', // Default image if none provided
-          excerpt, 
-          content,
           createdAt: new Date().toISOString(), // Add a timestamp for sorting
+          readingTime: calculateReadingTime(content), // Calculate reading time
         };
         posts.push(newPost);
         await savePosts(posts);
