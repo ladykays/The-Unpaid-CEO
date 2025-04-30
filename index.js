@@ -127,7 +127,14 @@ function getExcerpt(content) {
       const posts = await getPosts();
       const post = posts.find(p => p.id === req.params.id);
       if (!post) return res.status(404).send('Post not found');
-      res.render('editPostForm.ejs', { postTitle: post.title, postContent: post.content, postId: post.id });
+      res.render('editPostForm.ejs', { 
+        postTitle: post.title, 
+        postContent: post.content, 
+        postId: post.id, 
+        postCategory: post.category,
+        postImage: post.image,
+        
+      });
     } catch (error) {
       console.error('Error fetching post:', error);
       res.status(500).send('Error loading edit page');
@@ -138,11 +145,20 @@ function getExcerpt(content) {
     //res.render('posts.ejs');
     try {
       const posts = await getPosts();
-      // Sort posts by createdAt date in descending order
+      /* // Sort posts by createdAt date in descending order
       posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       // Render the posts page with the sorted posts
       //console.log({posts});
-      console.log('Posts with IDs:', posts.map(p => ({id: p.id, title: p.title})));
+      console.log('Posts with IDs:', posts.map(p => ({id: p.id, title: p.title}))); */
+
+      // Sort posts by the most recent date (either createdAt or updatedAt)
+      const sortByUpdateOrPosted = posts.sort((a, b) => {
+        const dateA = a.updatedAt ? Math.max(new Date(a.createdAt), new Date(a.updatedAt)) : new Date(a.createdAt);
+        const dateB = b.updatedAt ? Math.max(new Date(b.createdAt), new Date(b.updatedAt)) : new Date(b.createdAt);
+        return dateB - dateA; // Sort in descending order
+      });
+
+      // Render the posts page with the sorted posts
       res.render('posts.ejs', { 
         posts,
         showActions: true, // Show edit/delete buttons
@@ -285,13 +301,32 @@ function getExcerpt(content) {
       }
     });
 
+    // Update Routes
+    // Handle POST requests to update a post
     app.post('/posts/update/:id', async (req, res) => {
       try {
         const posts = await getPosts();
         const index = posts.findIndex(p => p.id === req.params.id);
         if (index === -1) return res.status(404).send('Post not found');
         
-        posts[index] = { ...posts[index], ...req.body };
+        // Create a new post object with updated data
+        const updatedPost = {
+          ...posts[index], // Keep existing post data
+          ...req.body, // Update with new data from the form
+          readingTime: calculateReadingTime(req.body.content), // Recalculate reading time
+          excerpt: getExcerpt(req.body.content), // Update the excerpt
+          updatedAt: new Date().toISOString(), // Add a timestamp for when the post was updated
+        };
+
+        posts[index] = updatedPost; // Replace the old post with the updated one
+
+        // Remove the old post from the array
+        //posts.splice(index, 1); 
+
+        // Add the updated post to the beginning of the array
+        //posts.unshift(updatedPost); 
+
+
         await savePosts(posts);
         res.redirect('/posts');
       } catch (error) {

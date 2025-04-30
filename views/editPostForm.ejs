@@ -4,10 +4,10 @@
   <h1>Edit Post</h1>  
 
   <div>
-    <form action="/editPostForm" method="POST">
+    <form action="/posts/update/<%= postId %>" method="POST">
       <div class="mb-3">
         <label for="title" class="form-label">Post Title</label>
-        <input type="text" class="form-control" id="title" name="title" required placeholder="Enter post title">
+        <input type="text" class="form-control" id="title" name="title" required value="<%= postTitle %>" >
       </div>
       <div class="mb-3">
         <label for="category" class="form-label">Category</label>
@@ -29,22 +29,26 @@
       </div>
       <div class="mb-3">
         <label for="image" class="form-label">Cover Image URL</label>
-        <input type="url" class="form-control" id="image" name="image" placeholder="https://example.com/image.jpg">
+        <input type="url" class="form-control" id="image" name="image" value="<%= postImage %>" >
       </div>
-      <!-- <div class="mb-3">
-        <label for="excerpt" class="form-label">Excerpt</label>
-        <input type="text" class="form-control" id="excerpt" name="excerpt" required placeholder="Brief summary of the post">
-      </div> -->
       <div class="mb-3">
         <label for="content" class="form-label">Post Content</label>
-        <textarea class="form-control" id="content" name="content" rows="5" required placeholder="Write your post content here..."></textarea>
+        <textarea class="form-control" id="content" name="content" rows="5" required><%= postContent %></textarea>
       </div>
       <div class="mt-5">
-        <button type="submit" class="btn btn-warning btn-lg publish-btn">Publish Post</button>
-        <button type="submit" class="btn btn-outline-warning btn-lg">Save as Draft</button>
+        <button type="submit" class="btn btn-warning btn-lg publish-btn">Update Post</button>
       </div>
       
     </form>
   </div>
 </section>
+<script>
+  // Preselect the category in the dropdown
+  document.addEventListener('DOMContentLoaded', function() {
+    const categorySelect = document.getElementById('category');
+    if (categorySelect && '<%= postCategory %>') {
+      categorySelect.value = '<%= postCategory %>';
+    }
+  });
+</script>
 <%- include("partials/footer.ejs") %>
