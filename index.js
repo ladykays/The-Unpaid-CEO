@@ -83,6 +83,15 @@ function calculateReadingTime(content) {
   return readingTime;
 };
 
+// Function to get first 20 words of the post content
+function getExcerpt(content) {
+  const text = content.replace(/<[^>]*>/g, ''); // Remove HTML tags
+  const words = text.trim().split(/\s+/); // Split into words
+  const excerpt = words.slice(0, 20).join(' ') + '...'; // Get first 20 words and ellipsis
+  //return excerpt + '...'; // Add ellipsis
+  return excerpt;
+}
+
 /*  Routes */
   // Get Routes
   app.get('/', async(req, res) => {
@@ -118,7 +127,7 @@ function calculateReadingTime(content) {
       const posts = await getPosts();
       const post = posts.find(p => p.id === req.params.id);
       if (!post) return res.status(404).send('Post not found');
-      res.render('editPostForm.ejs', { post });
+      res.render('editPostForm.ejs', { postTitle: post.title, postContent: post.content, postId: post.id });
     } catch (error) {
       console.error('Error fetching post:', error);
       res.status(500).send('Error loading edit page');
@@ -178,6 +187,7 @@ function calculateReadingTime(content) {
           image: image || '/images/default.jpg', // Default image if none provided
           createdAt: new Date().toISOString(), // Add a timestamp for sorting
           readingTime: calculateReadingTime(content), // Calculate reading time
+          excerpt: getExcerpt(content), // Get the excerpt from the content
         };
         posts.push(newPost);
         await savePosts(posts);
