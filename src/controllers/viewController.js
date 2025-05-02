@@ -1,6 +1,49 @@
-import Post from "../models/postModel.js";
+import * as postModel from "../models/postModel.js";
+
+// Homepage
+export async function home(req, res) {
+  try {
+    const posts = await postModel.getAllPosts();
+    const recentPosts = posts.slice(-3).reverse(); // Get 3 most recent (or all if less than 3)
+    res.render("index.ejs", {
+      posts: recentPosts,
+      showActions: false, // Hide edit and delete buttons
+      showReadMore: true, // Show "Read More" button
+      isHyperlink: false, // Don't make it a hyperlink
+      currentPage: "home", // Current page for navigation
+    });
+  } catch (error) {
+    console.error("Homepage error:", error);
+    res.render("index.ejs", {
+      posts: [],
+      currentPage: "home",
+    }); // Render with empty posts array
+  }
+}
+
+// About page
+export function about(req, res) {
+  res.render("about.ejs", { currentPage: "about" }); // Current page for navigation
+}
+
+// Contact page
+export function contact(req, res) {
+  res.render("contact.ejs", { currentPage: "contact" }); // Current page for navigation
+}
+
+// Resources page
+export function resources(req, res) {
+  res.render("resources.ejs", { currentPage: "resources" }); // Current page for navigation
+}
+
+// Create Post Form
+export function createPostForm(req, res) {
+  res.render("createPostForm.ejs", { currentPage: "createPost" }); // Current page for navigation
+}
+
 
 /* Controller for page related operations */
+/* 
 export default class PageController {
   // Homepage
   static async home(req, res) {
@@ -84,3 +127,4 @@ export default class PageController {
     }
   }
 }
+ */

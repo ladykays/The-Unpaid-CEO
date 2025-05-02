@@ -1,4 +1,4 @@
-import { WORDS_PER_MINUTE } from "../src/config/constants";
+import { WORDS_PER_MINUTE } from "../config/constants.js";
 
 // Function to generate an excerpt from the content
 export function getExcerpt(content, length = 100) {

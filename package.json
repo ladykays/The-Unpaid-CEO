@@ -5,7 +5,9 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/app.js",
+    "dev": "NODE_ENV=development nodemon src/app.js"
   },
   "author": "Kerrion Siokwu",
   "license": "ISC",

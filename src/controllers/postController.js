@@ -1,7 +1,168 @@
-import Post from "../models/postModel.js";
-import { calculateReadingTime, getExcerpt } from "../../utils/contentUtils.js"; // Import utility functions for content processing
+import * as postModel from "../models/postModel.js"; // Import all exports from postModel
 
-export default class PostController {
+// Function to fetch all posts from the postModel and display them
+export async function getAllPosts(req, res) {
+  try {
+    const posts = await postModel.getAllPosts(); // Fetch all posts
+    res.render('posts.ejs', {
+      posts,
+      showActions: true, // Show edit and delete buttons
+      showReadMore: false, // Don't show "Read More" button
+      isHyperlink: true, // Make it a hyperlink
+      currentPage: 'posts', // Current page for navigation
+    });
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    res.status(500).render("posts.ejs", {
+      posts: [],
+      currentPage: "posts",
+    }); // Render with empty posts array
+  }
+}
+
+// Function to fetch a single post by ID from the postModel and display it
+export async function getPostById(req, res) {
+  const {id} = req.params;
+
+  try {
+    const post = await postModel.getPostById(id);
+    if (!post) return res.status(404).send("Post not found");
+    res.render('blogPost.ejs', {post});
+  } catch (error) {
+    console.error("Error fetching post:", error);
+    res.status(500).send("Error loading post");
+  }
+}
+
+export async function getPostByTitle(req, res) {
+  const { title } = req.params;
+
+  try {
+    const post = await postModel.getPostByTitle(title);
+    if (!post) return res.status(404).send("Post not found");
+    res.render('blogPost.ejs', { post });
+  } catch (error) {
+    console.error("Error fetching post:", error);
+    res.status(500).send("Error loading post");
+  }
+}
+
+// Function to fetch posts by category from the postModel and display them
+export async function getPostsByCategory(req, res) {
+  const { category } = req.params;
+
+  try {
+    const posts = await postModel.getPostByCategory(category);
+    if (posts.length === 0) return res.status(404).send("No posts found in this category");
+    res.render('posts.ejs', {
+      posts,
+      showActions: true, // Show edit and delete buttons
+      showReadMore: false, // Don't show "Read More" button
+      isHyperlink: true, // Make it a hyperlink
+      currentPage: 'posts', // Current page for navigation
+    });
+  } catch (error) {
+    console.error("Error fetching posts by category:", error);
+    res.status(500).send("Error loading posts");
+  }
+}
+
+// Function to get the edit form
+export async function getEditForm(req, res) {
+  const { id } = req.params;
+  try {
+    const post = await postModel.getPostById(id);
+    if (!post) return res.status(404).send("Post not found");
+    res.render("editForm.ejs", {
+      postTitle: post.title,
+      postContent: post.content,
+      postId: post.id,
+      postCategory: post.category,
+      postImage: post.image,
+      currentPage: "editPost", // Current page for navigation
+    });
+  } catch (error) {
+    console.error("Edit post form error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
+
+export async function createPost(req, res) {
+  try {
+    const newPost = await postModel.createPost(req.body); // Create a new post using the request body
+    res.redirect(`/posts/${newPost.id}`); // Redirect to the newly created post
+  } catch (error) {
+    console.error("Error creating post:", error);
+    res.status(500).render("createPostForm.ejs", {
+      error: "Failed to create post",
+      formData: req.body,
+      currentPage: "createPost",
+    });
+  }
+}
+
+// Function to update a post by ID using the postModel and redirect to the updated post
+export async function updatePost(req, res) {
+  const { id } = req.params;
+
+  try {
+    const updatedPost = await postModel.updatePost(id, req.body); // Update the post using the request body
+    if (!updatedPost) return res.status(404).send("Post not found");
+    res.redirect(`/posts/${updatedPost.id}`); // Redirect to the updated post
+  } catch (error) {
+    console.error("Error updating post:", error);
+    res.status(500).render("editForm.ejs", {
+      error: "Failed to update post",
+      formData: req.body,
+      postId: id,
+      currentPage: "editPost",
+    });
+  }
+}
+
+// Function to delete a post by ID using the postModel and redirect to the posts page
+export async function deletePost(req, res) {
+  const { id } = req.params;
+
+  try {
+    const deletedPost = await postModel.deletePost(id); // Delete the post by ID
+    if (!deletedPost) return res.status(404).send("Post not found");
+    res.redirect("/posts"); // Redirect to the posts page
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
+export async function getRecentPosts(req, res) {
+  try {
+    const posts = await postModel.getAllPosts();
+    const recentPosts = posts.slice(-3); // Get the last 3 posts
+    res.render("index.ejs", {
+      posts: recentPosts,
+      showActions: false, // Show edit and delete buttons
+      showReadMore: true, // Show "Read More" button
+      isHyperlink: false, // Make it a hyperlink
+      currentPage: "home", // Current page for navigation
+    });
+  } catch (error) {
+    console.error("Error fetching recent posts:", error);
+    res.status(500).send("Internal Server Error");
+    res.render("index.ejs", {
+      posts: [],
+      currentPage: "home",
+    }); // Render with empty posts array
+  }
+}
+
+
+
+
+
+
+
+/* export default class PostController {
   // Create new post
   static async createPost(req, res) {
     try {
@@ -106,3 +267,4 @@ export default class PostController {
     }
   }
 }
+ */

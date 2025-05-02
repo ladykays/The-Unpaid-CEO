@@ -1,5 +1,5 @@
-import { readPosts, writePosts } from "../services/fileService.js";
-import { calculateReadingTime, getExcerpt } from "../../utils/contentUtils.js"; // Import utility functions for content processing
+import { readPosts, writePosts } from "../services/fileServices.js";
+import { calculateReadingTime, getExcerpt } from "../utils/contentUtils.js"; // Import utility functions for content processing
 import { v4 as uuidv4 } from "uuid"; // Import the UUID library to generate unique IDs
 
 //Fetch all blog posts from the JSON file storage.
@@ -22,7 +22,8 @@ export async function getPostByTitle(title) {
 // Fetch blog posts by category from the JSON file storage.
 export async function getPostByCategory(category) {
   const post = await readPosts(); // Read all posts from the JSON file
-  return post.filter((post) => post.category === category); // Filter and return posts with the matching category
+  const filteredPosts = post.filter((post) => post.category === category);
+  return filteredPosts; // Filter and return posts with the matching category
 }
 
 // Create a new blog post and save it to the JSON file storage.
@@ -64,14 +65,19 @@ export async function updatePost(id, updatedData) {
 export async function deletePost(id) {
   const posts = await readPosts(); 
   const postIndex = posts.findIndex((post) => post.id === id); // Find the index of the post to delete
+
   if (postIndex === -1) return null; // Return null if the post is not found
+
   const deletedPost = posts[postIndex]; // Store the post to be deleted
   const deletedAt = new Date().toISOString(); // Store the deletion date in ISO format
-  log(`${deletedPost.title} was deleted on ${deletedPost.deletedAt}`); // Log the deletion
+
+  // Add the deletion date to the post object
+  deletedPost.deletedAt = deletedAt; 
+  console.log(`${deletedPost.title} was deleted on ${deletedPost.deletedAt}`); // Log the deletion
   
   posts.splice(postIndex, 1); // Remove the post from the array
   await writePosts(posts); // Write the updated posts array back to the JSON file
-  return {...deletedPost, deletedAt}; 
+  return deletedAt; 
 
 }
 
