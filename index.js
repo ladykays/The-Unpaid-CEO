@@ -84,11 +84,17 @@ function calculateReadingTime(content) {
 };
 
 // Function to get first 20 words of the post content
-function getExcerpt(content) {
+/* function getExcerpt(content) {
   const text = content.replace(/<[^>]*>/g, ''); // Remove HTML tags
   const words = text.trim().split(/\s+/); // Split into words
   const excerpt = words.slice(0, 20).join(' ') + '...'; // Get first 20 words and ellipsis
   //return excerpt + '...'; // Add ellipsis
+  return excerpt;
+} */
+
+  // Function to get first 100 characters from the post content
+export function getExcerpt(content, length = 100) {  
+  const excerpt = content.length > length ? content.substring(0, length) + '...' : content; // Truncate content to the specified length
   return excerpt;
 }
 
@@ -170,6 +176,7 @@ function getExcerpt(content) {
     }
   });
 
+  // Render a specific blog post
   app.get('/posts/:id', async (req, res) => {
     try {
       const posts = await getPosts();
