@@ -52,6 +52,7 @@ export async function updatePost(id, updatedData) {
   const updatedPost = {
     ...posts[postIndex],
     ...updatedData,
+    image: updatedData.image || posts[postIndex].image,
     excerpt: getExcerpt(updatedData.content),
     readingTime: calculateReadingTime(updatedData.content),
     updatedAt: new Date().toISOString(), // Store the update date in ISO format

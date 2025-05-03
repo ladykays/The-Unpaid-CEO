@@ -29,7 +29,22 @@
       </div>
       <div class="mb-3">
         <label for="image" class="form-label">Cover Image URL</label>
-        <input type="url" class="form-control" id="image" name="image" value="<%= postImage %>" >
+        <input 
+          type="url" 
+          class="form-control" 
+          id="image" 
+          name="image" 
+          value="<%= postImage === '/images/default.jpg' ? '' : postImage %>" 
+          <%# placeholder="Leave empty to use default image" %>
+        >
+        <small class="form-text text-muted">
+          Current image: 
+          <% if (postImage === '/images/default.jpg') { %>
+            (using default image)
+          <% } else { %>
+            <img src="<%= postImage %>" width="100">
+          <% } %>
+        </small>
       </div>
       <div class="mb-3">
         <label for="content" class="form-label">Post Content</label>

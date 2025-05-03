@@ -79,7 +79,7 @@ export async function getEditForm(req, res) {
   try {
     const post = await postModel.getPostById(id);
     if (!post) return res.status(404).send("Post not found");
-    res.render("editForm.ejs", {
+    res.render("editPostForm.ejs", {
       postTitle: post.title,
       postContent: post.content,
       postId: post.id,

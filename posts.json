@@ -112,16 +112,18 @@
     "category": "Uncategorized",
     "createdAt": "2025-05-01T21:44:39.108Z",
     "readingTime": 1,
-    "excerpt": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m..."
+    "excerpt": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m...",
+    "updatedAt": "2025-05-03T01:14:55.854Z"
   },
   {
     "title": "Yet another",
     "category": "mindfulness",
-    "image": "/images/default.jpg",
-    "content": "dsafs",
+    "image": "https://www.braverlaw.net/wp-content/uploads/2016/04/sunny-day.jpg",
+    "content": "Hello mate",
     "id": "a84ef8fb-30e3-44bf-9ac5-19f2b9d00731",
     "createdAt": "2025-05-02T23:53:32.867Z",
-    "excerpt": "dsafs",
-    "readingTime": 1
+    "excerpt": "Hello mate",
+    "readingTime": 1,
+    "updatedAt": "2025-05-03T01:19:50.938Z"
   }
 ]
