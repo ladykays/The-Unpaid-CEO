@@ -21,7 +21,7 @@ router.get('/posts/title/:title', postController.getPostByTitle); // Posts by Ti
 
 
 // Form Submission Routes
-router.post('/posts/create', postController.createPost); // Create Post
+router.post('/posts/createPost', postController.createPost); // Create Post
 router.post('/posts/update/:id', postController.updatePost); // Update Post
 router.post('/posts/delete/:id', postController.deletePost); // Delete Post
 router.post('/contact', contactController.handleContactFormSubmission)

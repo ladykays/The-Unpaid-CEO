@@ -33,7 +33,7 @@ export async function createPost(postData) {
     ...postData, // Spread the post data from the request body
     id: uuidv4(), // Generate a unique ID for the new post
     category: postData.category || "Uncategorized", // Default category if none is provided
-    image: postData.image || "../public/images/default.jpg", // Default image if none is provided
+    image: postData.image || "/images/default.jpg", // Default image if none is provided
     createdAt: new Date().toISOString(), // Store the creation date in ISO format
     excerpt: getExcerpt(postData.content), // Generate an excerpt from the content
     readingTime: calculateReadingTime(postData.content), // Calculate the reading time for the content

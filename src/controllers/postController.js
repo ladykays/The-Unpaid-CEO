@@ -1,11 +1,14 @@
 import * as postModel from "../models/postModel.js"; // Import all exports from postModel
+import { sortByRecentActivity } from "../utils/contentUtils.js";
 
 // Function to fetch all posts from the postModel and display them
 export async function getAllPosts(req, res) {
   try {
     const posts = await postModel.getAllPosts(); // Fetch all posts
+    const sortedPosts = sortByRecentActivity(posts);
+
     res.render('posts.ejs', {
-      posts,
+      posts: sortedPosts,
       showActions: true, // Show edit and delete buttons
       showReadMore: false, // Don't show "Read More" button
       isHyperlink: true, // Make it a hyperlink
@@ -13,10 +16,13 @@ export async function getAllPosts(req, res) {
     });
   } catch (error) {
     console.error("Error fetching posts:", error);
-    res.status(500).render("posts.ejs", {
-      posts: [],
+    return res.status(500).render("posts.ejs", {
+      message: "Failed to load posts",
       currentPage: "posts",
-    }); // Render with empty posts array
+
+      // Only expose full error details in development for security (avoids leaking sensitive info in production)
+      error: process.env.NODE_ENV === 'development' ? error : null,
+    }); 
   }
 }
 

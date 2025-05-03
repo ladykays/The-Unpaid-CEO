@@ -123,5 +123,15 @@
     "createdAt": "2025-05-01T21:48:00.715Z",
     "readingTime": 1,
     "excerpt": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m..."
+  },
+  {
+    "title": "Yet another",
+    "category": "mindfulness",
+    "image": "/images/default.jpg",
+    "content": "dsafs",
+    "id": "a84ef8fb-30e3-44bf-9ac5-19f2b9d00731",
+    "createdAt": "2025-05-02T23:53:32.867Z",
+    "excerpt": "dsafs",
+    "readingTime": 1
   }
 ]
