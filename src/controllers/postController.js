@@ -1,14 +1,23 @@
 import * as postModel from "../models/postModel.js"; // Import all exports from postModel
-import { sortByRecentActivity } from "../utils/contentUtils.js";
+import { 
+  sortByRecentActivity,
+  extractCategories,
+  filterPostsByCategory,
+  calculateReadingTime,
+  getExcerpt,
+} from "../utils/contentUtils.js";
 
 // Function to fetch all posts from the postModel and display them
 export async function getAllPosts(req, res) {
   try {
     const posts = await postModel.getAllPosts(); // Fetch all posts
     const sortedPosts = sortByRecentActivity(posts);
+    const categories = extractCategories(posts)
 
     res.render('posts.ejs', {
       posts: sortedPosts,
+      categories,
+      activeCategory: null,
       showActions: true, // Show edit and delete buttons
       showReadMore: false, // Don't show "Read More" button
       isHyperlink: true, // Make it a hyperlink
@@ -33,7 +42,12 @@ export async function getPostById(req, res) {
   try {
     const post = await postModel.getPostById(id);
     if (!post) return res.status(404).send("Post not found");
-    res.render('blogPost.ejs', {post});
+    res.render('blogPost.ejs', {
+      post,
+      readingTime: calculateReadingTime(post.content),
+      excerpt: getExcerpt(post.content),
+      currentPage:'post'
+    });
   } catch (error) {
     console.error("Error fetching post:", error);
     res.status(500).send("Error loading post");
@@ -46,7 +60,12 @@ export async function getPostByTitle(req, res) {
   try {
     const post = await postModel.getPostByTitle(title);
     if (!post) return res.status(404).send("Post not found");
-    res.render('blogPost.ejs', { post });
+    res.render('blogPost.ejs', { 
+      post,
+      readingTime: calculateReadingTime(post.content),
+      excerpt: getExcerpt(post.content),
+      currentPage:'post'
+    });
   } catch (error) {
     console.error("Error fetching post:", error);
     res.status(500).send("Error loading post");
@@ -59,9 +78,18 @@ export async function getPostsByCategory(req, res) {
 
   try {
     const posts = await postModel.getPostByCategory(category);
-    if (posts.length === 0) return res.status(404).send("No posts found in this category");
+    const filteredPosts = filterPostsByCategory(allPosts, category);
+    const categories = extractCategories(allPosts);
+    if (filteredPosts.length === 0) return res.status(404).render('posts.ejs', {
+      message: "No posts found in this category",
+      categories,
+      currentPage: 'posts'
+    });
+
     res.render('posts.ejs', {
-      posts,
+      posts: sortByRecentActivity(filteredPosts),
+      categories,
+      activeCategory: category,
       showActions: true, // Show edit and delete buttons
       showReadMore: false, // Don't show "Read More" button
       isHyperlink: true, // Make it a hyperlink

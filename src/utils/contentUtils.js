@@ -48,3 +48,31 @@ export function sortByRecentActivity(posts) {
   
   return postsCopy;
 }
+
+// Extract all unique categories from posts array
+export function extractCategories(posts) {
+  // Get all unique category names
+  const categoryNames = [...new Set(posts.map(post => post.category))];
+  
+  // Convert to objects with id and name properties
+  return categoryNames.map(category => ({
+    id: slugifyCategory(category),
+    name: category
+  }));
+}
+
+// Helper function to create URL-friendly category IDs
+function slugifyCategory(category) {
+  return category.toLowerCase()
+    .replace(/\s+/g, '-')       // Replace spaces with -
+    .replace(/[^\w-]+/g, '');   // Remove all non-word chars
+}
+
+// Filter posts by category (returns all posts if category is 'all')
+export function filterPostsByCategory(posts, categoryId) {
+  if (categoryId === 'all') return posts;
+  
+  return posts.filter(post => 
+    slugifyCategory(post.category) === categoryId
+  );
+}

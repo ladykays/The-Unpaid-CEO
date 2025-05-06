@@ -18,8 +18,7 @@ router.get('/posts/edit/:id', postController.getEditForm); // Edit Post Form
 router.get('/posts/:id', postController.getPostById); // Specific Post Page
 router.get('/posts/category/:category', postController.getPostsByCategory); // Posts by Category
 router.get('/posts/title/:title', postController.getPostByTitle); // Posts by Title
-
-
+router.get('/posts/category/:category', postController.getPostsByCategory); 
 // Form Submission Routes
 router.post('/posts/createPost', postController.createPost); // Create Post
 router.post('/posts/update/:id', postController.updatePost); // Update Post
