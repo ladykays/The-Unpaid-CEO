@@ -36,12 +36,12 @@
     "title": "⏳ 20-Minute Meals: Fast, Tasty & Stress-Free! 🍳🔥",
     "category": "work-life-balance",
     "image": "https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_and_gnocchi_hash_63990_16x9.jpg",
-    "excerpt": "✨ Why we love quick meals: ✅ Perfect for weeknights ✅ Fewer dishes, more flavor ✅ No sacrificing nutrition for...",
+    "excerpt": "✨ Why we love quick meals:\r\n✅ Perfect for weeknights\r\n✅ Fewer dishes, more flavor\r\n✅ No sacrificing ...",
     "content": "✨ Why we love quick meals:\r\n✅ Perfect for weeknights\r\n✅ Fewer dishes, more flavor\r\n✅ No sacrificing nutrition for speed\r\n\r\nTry these easy ideas:\r\n🍝 Garlic Butter Shrimp Pasta – Sauté shrimp, toss with pasta, garlic, lemon, and parsley!\r\n🌮 Speedy Chicken Tacos – Seasoned chicken, fresh salsa, avocado—done in a flash!\r\n🥗 *5-Min Prep Salad* – Pre-washed greens, canned beans, cherry tomatoes, and a drizzle of dressing.\r\n\r\nPro tip: Keep staples like pre-cut veggies, canned beans, and frozen proteins on hand for even faster cooking!\r\n\r\nWhat’s your go-to quick meal? Share below! 👇 #FastAndFlavorful #20MinuteMeals\r\n\r\n(P.S. Meal prep shortcuts save lives. 🙌)\r\n",
     "id": "1745956836565",
     "createdAt": "2025-04-29T20:00:36.565Z",
     "readingTime": 1,
-    "updatedAt": "2025-04-30T21:22:12.560Z"
+    "updatedAt": "2025-05-07T18:13:53.542Z"
   },
   {
     "title": "The Seven Types of Rest You Might Be Missing",
@@ -93,7 +93,8 @@
     "id": "1746135690170",
     "createdAt": "2025-05-01T21:41:30.170Z",
     "readingTime": 1,
-    "excerpt": "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live ..."
+    "excerpt": "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live ...",
+    "updatedAt": "2025-05-07T14:35:24.290Z"
   },
   {
     "title": "Test",
@@ -116,5 +117,15 @@
     "readingTime": 1,
     "excerpt": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m...",
     "updatedAt": "2025-05-03T01:14:55.854Z"
+  },
+  {
+    "title": "Hello",
+    "image": "/images/default.jpg",
+    "content": "lkj klafj",
+    "id": "5ced6582-e97c-4000-ad27-4ad45c694737",
+    "category": "Uncategorized",
+    "createdAt": "2025-05-07T19:16:10.113Z",
+    "excerpt": "lkj klafj",
+    "readingTime": 1
   }
 ]

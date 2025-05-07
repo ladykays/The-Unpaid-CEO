@@ -1,10 +1,12 @@
 import * as postModel from "../models/postModel.js";
+import { sortByRecentActivity } from "../utils/contentUtils.js";
 
 // Homepage
 export async function home(req, res) {
   try {
     const posts = await postModel.getAllPosts();
-    const recentPosts = posts.slice(-3).reverse(); // Get 3 most recent (or all if less than 3)
+    const recentPosts = sortByRecentActivity(posts).slice(0, 3);
+    //const recentPosts = posts.slice(-3).reverse(); // Get 3 most recent (or all if less than 3)
     res.render("index.ejs", {
       posts: recentPosts,
       showActions: false, // Hide edit and delete buttons

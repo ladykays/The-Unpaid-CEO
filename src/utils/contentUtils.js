@@ -56,22 +56,24 @@ export function extractCategories(posts) {
   
   // Convert to objects with id and name properties
   return categoryNames.map(category => ({
-    id: slugifyCategory(category),
-    name: category
+    id: slugifyCategory(category), // Generate slugified ID (a URL-friendly verion of the category name)
+    name: category // Original category name
   }));
 }
 
 // Helper function to create URL-friendly category IDs
 function slugifyCategory(category) {
-  return category.toLowerCase()
+  return category.toLowerCase() // Convert to lowercase
     .replace(/\s+/g, '-')       // Replace spaces with -
-    .replace(/[^\w-]+/g, '');   // Remove all non-word chars
+    .replace(/[^\w-]+/g, '');   // Remove all non-word characters or hyphens
 }
 
 // Filter posts by category (returns all posts if category is 'all')
 export function filterPostsByCategory(posts, categoryId) {
-  if (categoryId === 'all') return posts;
+  if (categoryId === 'all') return posts; // If category is 'all' return all posts without filtering
   
+  // Otherwise, filter posts to only include those where:
+  // The slugified version of the post's category matches the requested categoryId
   return posts.filter(post => 
     slugifyCategory(post.category) === categoryId
   );

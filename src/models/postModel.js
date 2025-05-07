@@ -4,7 +4,20 @@ import { v4 as uuidv4 } from "uuid"; // Import the UUID library to generate uniq
 
 //Fetch all blog posts from the JSON file storage.
 export async function getAllPosts() { 
-  return await readPosts(); // Return an array of post objects with title, content, etc.
+  const posts = await readPosts(); // Return an array of post objects with title, content, etc.
+
+  // Basic validation
+  if (!Array.isArray(posts)) {
+    console.error('Posts data is not an array');
+    return [];
+  }
+  
+  return posts.filter(post => 
+    post.id && 
+    post.title && 
+    post.content && 
+    post.category
+  );
 }
 
 // Fetch a single blog post by ID from the JSON file storage.
