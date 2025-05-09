@@ -13,7 +13,8 @@
 <section class="contact">
   <div class="container w-75 mx-auto">
     <div class="row">
-      <div class="col-sm-4">
+      <!-- Contact Information section -->
+      <section class="col-sm-4">
         <div class="card">
           <div class="card-body">
             <h2 class="card-title">
@@ -131,35 +132,39 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-sm-8">
+      </section>
+
+      <!-- Contact Form section -->
+      <section class="col-sm-8">
         <div class="card">
           <div class="card-body">
             <h2 class="card-title">Contact <span class="teal">Form</span></h2>
             <form action="/contact" method="POST" class="contact-form">
               <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
+                <label for="name" class="form-label">Name<span class="required">*</span></label>
                 <input
                   type="text"
                   class="form-control"
                   id="name"
                   name="name"
                   placeholder="Your name"
+                  required
                 />
               </div>
               <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">Email<span class="required">*</span></label>
                 <input
                   type="email"
                   class="form-control"
                   id="email"
                   name="email"
                   placeholder="youremail@example.com"
+                  required
                 />
               </div>
               <div class="mb-3">
-                <label for="subject" class="form-label">Subject</label>
-                <select class="form-control" id="subject" name="subject">
+                <label for="subject" class="form-label">Subject<span class="required">*</span></label>
+                <select class="form-control" id="subject" name="subject" required>
                   <option value="" disabled selected>Select a subject</option>
                   <option value="General Inquiry">General Inquiry</option>
                   <option value="Collaboration">Collaboration</option>
@@ -168,7 +173,7 @@
                 </select>
               </div>
               <div class="mb-3">
-                <label for="message" class="form-label">Message</label>
+                <label for="message" class="form-label">Message<span class="required">*</span></label>
                 <textarea
                   class="form-control"
                   id="message"
@@ -199,7 +204,7 @@
             </form>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </section>

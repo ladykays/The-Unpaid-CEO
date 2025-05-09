@@ -1,38 +1,46 @@
-<%- include("partials/header.ejs") %>
 
-<section class="hero">
-  <div class="container-fluid w-75 mx-auto d-flex justify-content-between align-items-center">
-    <div class="hero-text-content w-50">
-      <h1>The <span class="teal">Unpayed </span>CEO</h1>
-      <p class="tagline">
-        Empowering women to lead their lives and businesses with confidence,
-        while balancing the demands of career, family, and self-care.
-      </p>
-      <div class="hero-button d-flex justify-content-left">
-        <a href="/createPostForm" type="button" class="btn btn-warning btn-lg"
-          >Create Post</a
-        >
-        <a
-          href="/"
-          type="button"
-          class="btn btn-outline-warning btn-lg hero-outline-btn ml-4"
-          >Explore Resources</a
-        >
+<div className="flex flex-col min-h-screen bg-off-white">
+  <%- include("partials/header.ejs") %>
+
+<section class="hero flex-grow">
+  <div class="container mx-auto d-flex justify-content-between align-items-center">
+    
+      <div class="hero-text-content">
+        <h1>The <span class="teal">Unpayed </span>CEO</h1>
+        <p class="tagline">
+          Empowering women to lead their lives and businesses with confidence,
+          while balancing the demands of career, family, and self-care.
+        </p>
+        <div class="hero-button d-flex justify-content-left">
+          <a href="/createPostForm" type="button" class="btn btn-warning btn-lg"
+            >Create Post</a
+          >
+          <a
+            href="/"
+            type="button"
+            class="btn btn-outline-warning btn-lg hero-outline-btn ml-4"
+            >Explore Resources</a
+          >
+        </div>
       </div>
-    </div>
-    <div class="w-50 hero-image p-5">
-      <img src="/images/mum.jpg " alt="hero tagline" />
-    </div>
+      <div class="w-50 hero-image p-5">
+        <img src="/images/mum.jpg " alt="hero tagline" />
+      </div>
     
   </div>
 </section>
 <section class="featured-posts">
   <div class="container-fluid w-75 mx-auto ">
     <div class="d-flex justify-content-between align-items-center flex-row">
-      <h2>Featured <span class="unpaid">Posts</span></h2>
+      <h2>Featured <span class="teal">Posts</span></h2>
       <a href="/posts" class="view-all">View all posts →</a>
     </div>
-    <%- include("partials/blogCard.ejs") %> 
+    <%- include("partials/blogCard.ejs", {
+      posts: posts,
+      showActions: false,
+      showReadMore: true,
+      isHyperlink: false,
+    }) %> 
   </div>
 </section>
 <section class="d-flex justify-content-center align-items-center flex-column newsletter">
@@ -90,4 +98,5 @@
 
 
   <%- include("partials/footer.ejs") %>
+</div>
 

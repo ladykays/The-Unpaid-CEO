@@ -13,12 +13,12 @@ router.get('/contact', viewController.contact);
 router.get('/resources', viewController.resources); // Resources page
 router.get('/createPostForm', viewController.createPostForm); 
 router.get('/posts', postController.getAllPosts); 
-//router.get('/', postController.getRecentPosts); 
+router.get('/', postController.getRecentPosts); 
 router.get('/posts/edit/:id', postController.getEditForm); // Edit Post Form
-router.get('/posts/:id', postController.getPostById); // Specific Post Page
+router.get('/posts/search', postController.searchPosts); //
 router.get('/posts/category/:category', postController.getPostsByCategory); // Posts by Category
 router.get('/posts/title/:title', postController.getPostByTitle); // Posts by Title
-
+router.get('/posts/:id', postController.getPostById); // Specific Post Page
 
 // Form Submission Routes
 router.post('/posts/createPost', postController.createPost); // Create Post
