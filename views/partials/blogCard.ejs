@@ -1,118 +1,97 @@
-<section class="row row-cols-1 row-cols-md-3 g-4">
-  <% if (typeof posts !== 'undefined' && posts.length) { %> <%
-  posts.forEach((post, index) => { %>
-  <div class="col mb-4 mb-md-4">
-    <div class="card h-100 position-relative">
-      <%# Conditionally display the edit and delete buttons and make %> 
-      <% if (isHyperlink) { %> 
-        <% if (showActions) { %>
-          <div
-            class="position-absolute top-0 end-0 d-flex m-3"
-            style="z-index: 10; top: 0; right: 0; gap: 10px"
-          >
-            <form action="/posts/edit/<%= post.id %>" method="GET" class="inline">
-              <button
-                type="submit"
-                class="p-1 border-0 rounded-circle shadow-sm update-btns edit-btn"
-              >
-                <i class="bi bi-pencil"></i>
-              </button>
-            </form>
-
-            <form
-              action="/posts/delete/<%= post.id %>"
-              method="POST"
-              class="d-inline"
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  <% if (typeof posts !== 'undefined' && posts.length) { %> 
+  <% posts.forEach((post, index) => { %>
+ 
+    <!-- Card Container -->
+  <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all hover:shadow-lg relative flex flex-col">
+    <%# Conditionally display the edit and delete buttons %> 
+    <% if (isHyperlink) { %> 
+      <% if (showActions) { %>
+        <div class="absolute top-4 right-4 flex space-x-2 z-10">
+          <form action="/posts/edit/<%= post.id %>" method="GET" class="">
+            <button
+              type="submit"
+              class="p-2 bg-white rounded-full shadow-md hover:bg-teal-400 hover:text-white transition-colors"
             >
-              <button
-                type="submit"
-                class="p-2 border-0 rounded-circle shadow-sm update-btns delete-btn"
-              >
-              <i class="bi bi-trash3"></i>
-              </button>
-            </form>
-          </div>
-        <% } %>
+              <i class='bx bx-pencil'></i>
+            </button>
+          </form>
 
-      <a href="/posts/<%= post.id %>" class="card-link">
-        <img src="<%= post.image || '...' %>" class="card-img-top" alt="..." />
-      </a>
-      <% } else { %>
-      <img src="<%= post.image || '...' %>" class="card-img-top" alt="..." />
+          <form
+            action="/posts/delete/<%= post.id %>"
+            method="POST"
+            class=""
+          >
+            <button
+              type="submit"
+              class="p-2 bg-white rounded-full shadow-md hover:bg-red-500 hover:text-white transition-colors"
+            >
+              <i class='bx bx-trash-alt' ></i>
+            </button>
+          </form>
+        </div>
       <% } %>
 
-      <div class="card-body">
-        <div class="category-badge mb-2">
-          <% const categoryName = typeof post.category === 'object' ? post.category.name : post.category; %>
-            <% const categoryId = typeof post.category === 'object' ? post.category.id : post.category.toLowerCase().replace(/\s+/g, '-'); %>
-            <span class="badge p-2">
-              <%= typeof categoryName === 'string' ? 
-                  categoryName.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) : 
-                  'Uncategorized' %>
-            </span>
-        </div>
-        <pre><%# JSON.stringify(post, null, 2) %></pre>
+      <a href="/posts/<%= post.id %>" class="">
+        <img src="<%= post.image || '...' %>" class="w-full h-58 object-cover" alt="..." />
+      </a>
+    <% } else { %>
+      <img src="<%= post.image || '...' %>" class="w-full h-58 object-cover" alt="..." />
+    <% } %>
 
-        <% if (isHyperlink) { %>
-        <a href="/posts/<%= post.id %>" class="card-link">
-          <h5 class="card-title"><%= post.title %></h5>
-        </a>
-        <% } else { %>
-        <h5 class="card-title"><%= post.title %></h5>
-        <% } %>
-        <p class="card-text"><%= post.excerpt %></p>
-
-        <%# conditionally display `Read more`button depending on the page %> <%
-        if (!showActions) { %>
-        <a href="/posts/<%= post.id %>" class="btn btn-warning-sm">Read more</a>
-        <% } %>
+    <!-- Make the content area grow to fill available space -->
+    <div class="p-5 flex flex-col flex-grow">
+      <div class="mb-5">
+        <% const categoryName = typeof post.category === 'object' ? post.category.name : post.category; %>
+        <% const categoryId = typeof post.category === 'object' ? post.category.id : post.category.toLowerCase().replace(/\s+/g, '-'); %>
+        <span class="inline-block px-3 py-1 text-sm font-semibold bg-red-200 text-gray-900 rounded-full tracking-wide">
+          <%= typeof categoryName === 'string' ? 
+              categoryName.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) : 
+              'Uncategorized' %>
+        </span>
       </div>
-      <div class="card-footer">
-        <small
-          class="text-body-secondary d-flex justify-content-between align-items-center"
-        >
-          <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-calendar4 mr-1"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"
-              />
-            </svg>
-            <% if (post.updatedAt) { %> Updated: <%= new
-            Date(post.updatedAt).toLocaleDateString('en-US', {year: 'numeric',
-            month: 'long', day: 'numeric'}) %> <% } else { %> Posted: <%= new
-            Date(post.createdAt).toLocaleDateString('en-US', {year: 'numeric',
-            month: 'long', day: 'numeric'}) %> <% } %>
-          </div>
-          <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-clock mr-1"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"
-              />
-              <path
-                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"
-              />
-            </svg>
-            <%= post.readingTime %> min read
-          </div>
-        </small>
+      <pre><%# JSON.stringify(post, null, 2)%> </pre>  <!-- for dubugging purposes --> 
+
+      <% if (isHyperlink) { %>
+        <a href="/posts/<%= post.id %>" class="">
+          <h5 class="text-2xl font-bold text-gray-900 mb-5 hover:text-teal-400 transition-colors"><%= post.title %></h5>
+        </a>
+      <% } else { %>
+        <h5 class="text-2xl font-bold text-gray-900 mb-5 hover:text-teal-400 transition-colors"><%= post.title %></h5>
+      <% } %>
+      
+      <p class="text-gray-600 text-[1.3rem] mb-8 line-clamp-3"><%= post.excerpt %></p>
+
+      <%# conditionally display `Read more`button depending on the page %>
+      <% if (!showActions) { %>
+        <div class="my-4">
+          <a href="/posts/<%= post.id %>" class="inline-block bg-teal-400 hover:bg-teal-400/90 text-white text-md px-4 py-2 rounded-md transition-colors leading-5">Read more</a>
+        </div>
+      <% } %>
+      
+      <!-- Card footer -->
+      <div class="flex items-center justify-between text-lg text-gray-500 mt-auto pt-6"> <!--  mt-auto added to push the footer to the bottom -->
+        <div class="card-footer">
+          <% if (post.updatedAt) { %>
+            <div>
+              <i class='bx bx-calendar-edit text-2xl align-top'></i> Updated: 
+              <%= new Date(post.updatedAt).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}) %>
+            </div> 
+          <% } else { %>
+            <div><i class='bx bx-calendar-alt'></i> Posted: 
+              <%= new Date(post.createdAt).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}) %>
+            </div> 
+          <% } %>
+        </div>
+        <div>
+          <i class='bx bx-time-five text-2xl align-top'></i>
+          <%= post.readingTime %> min read
+        </div>
       </div>
     </div>
   </div>
-  <% }); %> <% } else { %>
+  <% }); %> 
+  <% } else { %>
   <p>No posts yet. Be the first to create one!</p>
   <% } %>
 </section>

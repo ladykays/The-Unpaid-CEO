@@ -117,15 +117,5 @@
     "readingTime": 1,
     "excerpt": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m...",
     "updatedAt": "2025-05-03T01:14:55.854Z"
-  },
-  {
-    "title": "Hello",
-    "image": "/images/default.jpg",
-    "content": "lkj klafj",
-    "id": "5ced6582-e97c-4000-ad27-4ad45c694737",
-    "category": "Uncategorized",
-    "createdAt": "2025-05-07T19:16:10.113Z",
-    "excerpt": "lkj klafj",
-    "readingTime": 1
   }
 ]
