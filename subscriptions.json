@@ -1,5 +1,9 @@
 [
   {
+    "email": "adamma@obinna.com",
+    "submittedAt": "2025-05-11T00:21:33.092Z"
+  },
+  {
     "email": "hello@world.com",
     "timestamp": "2025-04-29T09:48:49.517Z"
   },
@@ -17,5 +21,9 @@
   {
     "email": "you@me.com",
     "timestamp": "2025-04-29T10:05:35.846Z"
+  },
+  {
+    "email": "ada@obi.com",
+    "submittedAt": "2025-05-11T00:17:49.398Z"
   }
 ]

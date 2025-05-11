@@ -10,7 +10,7 @@ export async function handleContactFormSubmission(contactData) {
       ...contactData,
       submittedAt: new Date().toISOString(),
     }
-    contacts.push(submissionWithTimestamp);
+    contacts.unshift(submissionWithTimestamp);
     await writeContacts(contacts);
     console.log("Contact form data saved successfully.");
     console.log({contacts})
