@@ -3,6 +3,7 @@ import pageRoutes from './web/pageRoutes.js';
 import postRoutes from './web/postRoutes.js';
 import contactRoutes from './api/contactRoutes.js';
 
+
 const router = express.Router(); // Create a new router instance 
 
 // Define the routes for the web pages
