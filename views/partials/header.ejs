@@ -1,59 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Bootstrap icons -->
-  <!-- <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet"> -->
-   <!-- Boxicons Icons -->
-   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <!-- Tailwind CSS -->
-  <link href="/styles/output.css" rel="stylesheet">
-  <title>The Unpaid CEO </title>
-</head>
-<body>
-  <header>
-    <nav class="bg-white border-gray-200 dark:bg-gray-900 py-0 md:py-5">
-      <div class="max-w-screen-xl flex items-center justify-between mx-auto p-4">
-      <a href="/" class="flex items-center space-x-0 md:space-x-3 rtl:space-x-reverse">
-          <img src="images/logo-un-sm-gray.png" class="h-4 md:h-10" alt="The Unpaid CEO Logo" />
-          <span class="self-center text-normal md:text-2xl  font-semibold whitespace-nowrap dark:text-white light:text-gray-900">The <span class="text-teal-400">Unpaid </span> CEO
-      </a>
-      <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <a
-            href="/createPostForm" 
-            class="hidden md:inline-flex opacity-0 md:opacity-100 invisible md:visible transition-all duration-300 text-white bg-teal-400 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-lg text-xs md:text-sm px-2 md:px-4 py-1  md:py-3 text-center dark:bg-teal-400 dark:hover:bg-teal-300 dark:focus:ring-teal-800 self-center align-middle leading-5"
-    
-          >Create Post</a>
-          <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
-            <span class="sr-only">Open main menu</span>
-            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap icons -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet"> -->
+    <!-- Boxicons Icons -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <link href="/styles/output.css" rel="stylesheet" />
+    <link href="/styles/styles.css" rel="stylesheet" />
+    <title>The Unpaid CEO</title>
+  </head>
+  <body>
+    <header class="bg-white shadow-sm">
+      <div class="container mx-auto px-4 py-4 md:py-6">
+        <div class="flex justify-between items-center">
+          <a href="/" class="flex items-center">
+            <img
+              src="images/logo-un-sm-gray.png"
+              class="h-8 md:h-10"
+              alt="The Unpaid CEO Logo"
+            />
+            <span
+              class="text-2xl font-display font-bold text-gray-700"
+            >
+              The <span class="text-teal-400">Unpaid </span>
+              CEO
+            </span>
+          </a>
+          <button class="md:hidden" id="menuButton">
+            <svg
+              id="menuIcon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-menu h-6 w-6 text-charcoal"
+              data-id="element-104"
+            >
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
             </svg>
-        </button>
+            <svg
+              id="closeIcon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-x h-6 w-6 text-charcoal hidden"
+            >
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+          <nav class="hidden md:flex items-center space-x-8 text-xl">
+            <a
+              href="/"
+              class="text-gray-700 hover:text-teal-400 transition-colors"
+              >Home</a
+            >
+            <a
+              href="/about"
+              class="text-gray-700 hover:text-teal-400 transition-colors"
+              >About</a
+            >
+            <a
+              href="/resources"
+              class="text-gray-700 hover:text-teal-400 transition-colors"
+              >Resources</a
+            >
+            <a
+              href="/contact"
+              class="text-gray-700 hover:text-teal-400 transition-colors"
+              >Contact</a
+            >
+            <a
+              href="/createPostForm"
+              class="bg-teal-400 text-white px-4 py-2 rounded-md hover:bg-teal-400/80 transition-colors flex items-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-plus h-4 w-4 mr-2"
+                data-id="element-111"
+              >
+                <path d="M5 12h14"></path>
+                <path d="M12 5v14"></path>
+              </svg>
+              Create Post
+            </a>
+          </nav>
+        </div>
+        <!-- Mobile menu -->
+        <nav
+          class="hidden md:hidden flex flex-col mt-4 space-y-3 pb-3"
+          id="mobileMenu"
+        >
+          <div class="flex flex-col space-y-3 pb-3 pt-4">
+            <a
+              href="/"
+              class="text-gray-700 hover:text-teal-400 transition-colors"
+              >Home</a
+            >
+            <a
+              href="/about"
+              class="text-gray-700 hover:text-teal-400 transition-colors"
+              >About</a
+            >
+            <a
+              href="/resources"
+              class="text-gray-700 hover:text-teal-400 transition-colors"
+              >Resources</a
+            >
+            <a
+              href="/contact"
+              class="text-gray-700 hover:text-teal-400 transition-colors"
+              >Contact</a
+            >
+            <a
+              href="/createPostForm"
+              class="bg-teal-400 text-white px-4 py-2 rounded-md hover:bg-teal-400/80 transition-colors flex items-center w-fit"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-plus h-4 w-4 mr-2"
+                data-id="element-111"
+              >
+                <path d="M5 12h14"></path>
+                <path d="M12 5v14"></path>
+              </svg>
+              Create Post
+            </a>
+          </div>
+        </nav>
       </div>
-      <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
-        <ul class="flex flex-col text-2xl font-light p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 text-xs md:text-2xl">
-          <li>
-            <a href="/" class="block py-2 px-3 md:p-0 text-gray-900 bg-teal-400 rounded md:bg-transparent md:text-teal-400 dark:text-white hover:text-teal-400 md:hover:text-teal-400" aria-current="page">Home</a>
-          </li>
-          <li>
-            <a href="/about" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-400 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
-          </li>
-          <li>
-            <a href="/resources" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-400 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Resources</a>
-          </li>
-          <li>
-            <a href="/contact" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-400 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
-          </li>
-        </ul>
-      </div>
-      </div>
-    </nav>
-  </header>
-  
-
-
-
-
-  
+    </header>
+  </body>
+</html>
