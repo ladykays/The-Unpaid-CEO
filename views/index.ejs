@@ -51,67 +51,69 @@
         showReadMore: true, isHyperlink: false, }) %>
       </div>
     </section>
+    <!-- Newsletter Section -->
     <section class="py-20 bg-red-200/30">
       <div class="container mx-auto px-4">
         <div class="max-w-2xl mx-auto text-center">
-          <h2 class="text-5xl font-display font-bold text-gray-800 mb-5">Join Our Newsletter</h2>
+          <h2 class="text-5xl font-display font-bold text-gray-800 mb-5">
+            Join Our Newsletter
+          </h2>
           <p class="text-gray-600 mb-10 text-xl">
             Get weekly tips, resources, and inspiration delivered straight to
             your inbox.
           </p>
-          <form action="/subscribe" method="POST" class="flex flex-col sm:flex-row gap-3">
-            
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email address"
-                class="flex-grow px-4 py-3 rounded-md border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-400 text-[1.2rem]"
-              />
-              <button type="submit" class="bg-teal-400 hover:bg-teal-400/90 text-white text-[1.2rem] px-6 py-3 rounded-md transition-colors whitespace-nowrap">
-                Subscribe Now
-              </button>
-            
+          <form
+            action="/subscribe"
+            method="POST"
+            class="flex flex-col sm:flex-row gap-3"
+          >
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email address"
+              class="flex-grow px-4 py-3 rounded-md border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-400 text-[1.2rem]"
+            />
+            <button
+              type="submit"
+              class="bg-teal-400 hover:bg-teal-400/90 text-white text-[1.2rem] px-6 py-3 rounded-md transition-colors whitespace-nowrap"
+            >
+              Subscribe Now
+            </button>
           </form>
         </div>
       </div>
     </section>
-    <section class="cards">
-      <div class="container-fluid w-75 mx-auto">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">About Us</h5>
-                <p class="card-text">
-                  Learn more about our mission and the story behind The Unpaid
-                  CEO.
-                </p>
-                <p class="card-link">Read our story →</p>
-              </div>
-            </div>
+    <!-- About, Free Resources and Get in Touch tiles Section -->
+    <section class="bg-gray-50 py-16">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white p-16 rounded-lg shadow-lg text-center">
+            <h3 class="text-2xl font-bold text-gray-700 mb-4">About Us</h3>
+            <p class="text-gray-600 text-xl mb-10">
+              Learn more about our mission and the story behind The Unpaid CEO.
+            </p>
+            <a class="inline-flex items-center text-teal-400 text-2xl hover:underline"
+              >Read our story →</a
+            >
           </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Free Resources</h5>
-                <p class="card-text">
-                  Access our library of free guides, printables, and tools to
-                  help you thrive.
-                </p>
-                <p class="card-link">Browse resources →</p>
-              </div>
-            </div>
+          <div class="bg-white p-16 rounded-lg shadow-lg text-center">
+            <h3 class="text-2xl font-bold text-gray-700 mb-4">Free Resources</h3>
+            <p class="text-gray-600 text-xl mb-10">
+              Access our library of free guides, printables, and tools to help
+              you thrive.
+            </p>
+            <a class="inline-flex items-center text-teal-400 text-2xl hover:underline"
+              >Browse resources →</a
+            >
           </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Get in Touch</h5>
-                <p class="card-text">
-                  Questions or collaboration ideas? We'd love to hear from you.
-                </p>
-                <p class="card-link">Contact us →</p>
-              </div>
-            </div>
+          <div class="bg-white p-16 rounded-lg shadow-md text-center">
+            <h3 class="text-2xl font-bold text-gray-700 mb-4">Get in Touch</h3>
+            <p class="text-gray-600 text-xl mb-10">
+              Questions or collaboration ideas? We'd love to hear from you.
+            </p>
+            <a class="inline-flex items-center text-teal-400 text-2xl hover:underline"
+              >Contact us →</a
+            >
           </div>
         </div>
       </div>
