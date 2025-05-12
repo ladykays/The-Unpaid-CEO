@@ -15,155 +15,151 @@
     <link href="/styles/styles.css" rel="stylesheet" />
     <title>The Unpaid CEO</title>
   </head>
-  <body>
-    <header class="bg-white shadow-sm">
-      <div class="container mx-auto px-8 py-4 md:py-6">
-        <div class="flex justify-between items-center">
-          <a href="/" class="flex items-center">
-            <img
-              src="images/logo-un-sm-gray.png"
-              class="h-8 md:h-10"
-              alt="The Unpaid CEO Logo"
-            />
-            <span
-              class="text-2xl font-display font-bold text-gray-700"
+  <header class="bg-white shadow-sm">
+    <div class="container mx-auto px-8 py-4 md:py-6">
+      <div class="flex justify-between items-center">
+        <a href="/" class="flex items-center">
+          <img
+            src="images/logo-un-sm-gray.png"
+            class="h-8 md:h-10"
+            alt="The Unpaid CEO Logo"
+          />
+          <span class="text-2xl font-display font-bold text-gray-700">
+            The <span class="text-teal-400">Unpaid </span>
+            CEO
+          </span>
+        </a>
+        <button class="lg:hidden" id="menuButton">
+          <svg
+            id="menuIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-menu h-6 w-6 text-charcoal"
+            data-id="element-104"
+          >
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
+          <svg
+            id="closeIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-x h-6 w-6 text-charcoal hidden"
+          >
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+        <nav class="hidden lg:flex items-center space-x-8 text-xl">
+          <a
+            href="/"
+            class="text-gray-700 hover:text-teal-400 transition-colors"
+            >Home</a
+          >
+          <a
+            href="/about"
+            class="text-gray-700 hover:text-teal-400 transition-colors"
+            >About</a
+          >
+          <a
+            href="/resources"
+            class="text-gray-700 hover:text-teal-400 transition-colors"
+            >Resources</a
+          >
+          <a
+            href="/contact"
+            class="text-gray-700 hover:text-teal-400 transition-colors"
+            >Contact</a
+          >
+          <a
+            href="/createPostForm"
+            class="bg-teal-400 text-white px-4 py-2 rounded-md hover:bg-teal-400/80 transition-colors flex items-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-plus h-4 w-4 mr-2"
+              data-id="element-111"
             >
-              The <span class="text-teal-400">Unpaid </span>
-              CEO
-            </span>
+              <path d="M5 12h14"></path>
+              <path d="M12 5v14"></path>
+            </svg>
+            Create Post
           </a>
-          <button class="lg:hidden" id="menuButton">
-            <svg
-              id="menuIcon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-menu h-6 w-6 text-charcoal"
-              data-id="element-104"
-            >
-              <line x1="4" x2="20" y1="12" y2="12"></line>
-              <line x1="4" x2="20" y1="6" y2="6"></line>
-              <line x1="4" x2="20" y1="18" y2="18"></line>
-            </svg>
-            <svg
-              id="closeIcon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-x h-6 w-6 text-charcoal hidden"
-            >
-              <path d="M18 6 6 18"></path>
-              <path d="m6 6 12 12"></path>
-            </svg>
-          </button>
-          <nav class="hidden lg:flex items-center space-x-8 text-xl">
-            <a
-              href="/"
-              class="text-gray-700 hover:text-teal-400 transition-colors"
-              >Home</a
-            >
-            <a
-              href="/about"
-              class="text-gray-700 hover:text-teal-400 transition-colors"
-              >About</a
-            >
-            <a
-              href="/resources"
-              class="text-gray-700 hover:text-teal-400 transition-colors"
-              >Resources</a
-            >
-            <a
-              href="/contact"
-              class="text-gray-700 hover:text-teal-400 transition-colors"
-              >Contact</a
-            >
-            <a
-              href="/createPostForm"
-              class="bg-teal-400 text-white px-4 py-2 rounded-md hover:bg-teal-400/80 transition-colors flex items-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-plus h-4 w-4 mr-2"
-                data-id="element-111"
-              >
-                <path d="M5 12h14"></path>
-                <path d="M12 5v14"></path>
-              </svg>
-              Create Post
-            </a>
-          </nav>
-        </div>
-        <!-- Mobile menu -->
-        <nav
-          class="hidden lg:hidden flex-col mt-4 space-y-3 pb-3"
-          id="mobileMenu"
-        >
-          <div class="flex flex-col space-y-3 pb-3 pt-4">
-            <a
-              href="/"
-              class="text-gray-700 hover:text-teal-400 transition-colors"
-              >Home</a
-            >
-            <a
-              href="/about"
-              class="text-gray-700 hover:text-teal-400 transition-colors"
-              >About</a
-            >
-            <a
-              href="/resources"
-              class="text-gray-700 hover:text-teal-400 transition-colors"
-              >Resources</a
-            >
-            <a
-              href="/contact"
-              class="text-gray-700 hover:text-teal-400 transition-colors"
-              >Contact</a
-            >
-            <a
-              href="/createPostForm"
-              class="bg-teal-400 text-white px-4 py-2 rounded-md hover:bg-teal-400/80 transition-colors flex items-center w-fit"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-plus h-4 w-4 mr-2"
-                data-id="element-111"
-              >
-                <path d="M5 12h14"></path>
-                <path d="M12 5v14"></path>
-              </svg>
-              Create Post
-            </a>
-          </div>
         </nav>
       </div>
-    </header>
-  </body>
-</html>
+      <!-- Mobile menu -->
+      <nav
+        class="hidden lg:hidden flex-col mt-4 space-y-3 pb-3"
+        id="mobileMenu"
+      >
+        <div class="flex flex-col space-y-3 pb-3 pt-4">
+          <a
+            href="/"
+            class="text-gray-700 hover:text-teal-400 transition-colors"
+            >Home</a
+          >
+          <a
+            href="/about"
+            class="text-gray-700 hover:text-teal-400 transition-colors"
+            >About</a
+          >
+          <a
+            href="/resources"
+            class="text-gray-700 hover:text-teal-400 transition-colors"
+            >Resources</a
+          >
+          <a
+            href="/contact"
+            class="text-gray-700 hover:text-teal-400 transition-colors"
+            >Contact</a
+          >
+          <a
+            href="/createPostForm"
+            class="bg-teal-400 text-white px-4 py-2 rounded-md hover:bg-teal-400/80 transition-colors flex items-center w-fit"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-plus h-4 w-4 mr-2"
+              data-id="element-111"
+            >
+              <path d="M5 12h14"></path>
+              <path d="M12 5v14"></path>
+            </svg>
+            Create Post
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main>
