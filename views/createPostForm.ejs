@@ -1,7 +1,7 @@
 <%- include("partials/header.ejs") %>
 
 <main class="flex-grow">
-  <div class="bg-white shadow-sm pb-20">
+  <div class="bg-gray-100 shadow-sm pb-20">
     <!-- Hero Section -->
     <section class="bg-gray-900 text-white py-24">
       <div class="container mx-auto px-8 text-center">
@@ -18,13 +18,13 @@
       <div class="container mx-auto px-8">
         <div class="max-w-3xl mx-auto">
           <form action="/posts/createPost" method="POST" class="bg-white rounded-lg shadow-md p-8">
-            <div class="mb-6">
-              <label for="title" class="block text-gray-700 text-xl font-bold mb-4">Post Title <span class="text-red-700">*</span></label>
-              <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400" id="title" name="title" required placeholder="Enter post title">
+            <div class="mb-8">
+              <label for="title" class="block text-gray-700 text-xl font-semibold mb-2">Post Title <span class="text-red-700">*</span></label>
+              <input type="text" class="w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400" id="title" name="title" required placeholder="Enter post title">
             </div>
-            <div class="mb-3">
-              <label for="category" class="block text-gray-700 text-xl font-bold mb-4">Category</label>
-              <select id="category" name="category" class="form-control">
+            <div class="mb-8">
+              <label for="category" class="block text-gray-700 text-xl font-semibold mb-2">Category</label>
+              <select id="category" name="category" class="w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400">
                 <option value="" disabled selected>Select a category</option>
                 <option value="family">Family</option>
                 <option value="finance">Finance</option>
@@ -40,21 +40,33 @@
                 <option value="work-life-balance">Work-Life Balance</option>
               </select>
             </div>
-            <div class="mb-3">
-              <label for="image" class="block text-gray-700 text-xl font-bold mb-4">Cover Image URL</label>
-              <input type="url" class="form-control" id="image" name="image" placeholder="https://example.com/image.jpg">
+            <div class="mb-8">
+              <label for="image" class="block text-gray-700 text-xl font-semibold mb-2">Cover Image URL</label>
+              <input type="url" class="w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400" id="image" name="image" placeholder=" https://example.com/image.jpg">
+              
             </div>
             <!-- <div class="mb-3">
               <label for="excerpt" class="form-label">Excerpt</label>
               <input type="text" class="form-control" id="excerpt" name="excerpt" required placeholder="Brief summary of the post">
             </div> -->
-            <div class="mb-3">
-              <label for="content" class="block text-gray-700 text-xl font-bold mb-4">Post Content <span class="text-red-700">*</span></label>
-              <textarea class="form-control" id="content" name="content" rows="5" required placeholder="Write your post content here..."></textarea>
+            <div class="mb-10">
+              <label for="content" class="block text-gray-700 text-xl font-semibold mb-2">Post Content <span class="text-red-700">*</span></label>
+              <p class="text-gray-500 mb-2">Tip: Separate paragraphs with blank lines. Wrap text in **asterisks** for bold.</p>
+              <textarea class="w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400" id="content" name="content" rows="5" required placeholder="Write your post content here...
+              
+Like this with paragraphs separated by blank lines.
+
+**This will be bold**"></textarea>
+              <!-- Using a text editor instead of textarea -->
+              <!-- <div class="mb-3">
+                <label for="content" class="block text-gray-700 text-xl font-bold mb-4">Post Content <span class="text-red-700">*</span></label>
+                <div id="editor" style="height: 300px;"></div>
+                <input type="hidden" id="content" name="content">
+              </div> -->
             </div>
-            <div class="mt-5">
-              <button type="submit" class="btn btn-warning btn-lg publish-btn">Publish Post</button>
-              <button type="submit" class="btn btn-outline-warning btn-lg">Save as Draft</button>
+            <div class="flex flex-wrap gap-8">
+              <button type="submit" class="bg-teal-400 hover:bg-teal-400/80 text-white text-xl px-9 py-4 rounded-md transition-colors">Publish Post</button>
+              <button type="submit" class="bg-transparent border-2 border-teal-400 text-gray-700 text-xl hover:bg-teal-400/10  px-9 py-4 rounded-md transition-colors">Save as Draft</button>
             </div>
             
           </form>

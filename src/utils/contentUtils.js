@@ -2,8 +2,13 @@ import { WORDS_PER_MINUTE } from "../config/constants.js";
 
 // Function to generate an excerpt from the content
 export function getExcerpt(content, length = 100) {
+  // Remove markdown-style bold syntax (**text** 👉 text)
+  const plainText = content.replace(/\*\*(.*?)\*\*/g, '$1') 
+
+  // Truncate and add ellipsis if needed
   const excerpt =
-    content.length > length ? content.substring(0, length) + "..." : content; // Truncate content to the specified length
+    plainText.length > length ? plainText.substring(0, length) + "..." : plainText; // Truncate content to the specified length
+    
   return excerpt;
 }
 
