@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Weekly Planner Template",
+    "image": "./images/resources/planner.jpg",
+    "alt": "Close-up of a hand jotting down tasks in a digital weekly planner on an iPad screen.",
+    "excerpt": "A printable weekly planner designed for busy moms to organize work and family commitments."
+  },
+  {
+    "title": "Family Budget Spreadsheet",
+    "image": "./images/resources/budget.jpg",
+    "alt": "A calculator with pen and coins on a printed barchart sheet",
+    "excerpt": "Track your household expenses and savings goals with this comprehensive budget template."
+  },
+  {
+    "title": "Self-Care Challenge Guide",
+    "image": "./images/resources/self-care.jpg",
+    "alt": "Close-up of a woman smiling as she takes a bite from a bowl of food.",
+    "excerpt": "A 30-day guide to incorporating small self-care practices into your busy schedule."
+  },
+  {
+    "title": "Career Pivot Workbook",
+    "image": "./images/resources/career.jpg",
+    "alt": "A woman wearing glasses typing on a laptop, focused on her work.",
+    "excerpt": "Exercises and prompts to help you navigate a career change while managing family responsibilities."
+  },
+  {
+    "title": "Time Management Workshop",
+    "image": "./images/resources/time2.jpg",
+    "alt": "A vintage clock hanging on a neutral wall, accompanied by a small philosophical note asking, 'What does time mean to you?'",
+    "excerpt": "A recorded workshop on maximizing your productive hours as a busy parent."
+  },
+  {
+    "title": "Meal Planning Guide",
+    "image": "./images/resources/food.jpg",
+    "alt": "A colorful platter overflowing with fresh fruits and vegetables, including leafy greens, olives, and sliced tomatoes.",
+    "excerpt": "Simplify your week with this comprehensive meal planning system for busy families."
+  }
+]

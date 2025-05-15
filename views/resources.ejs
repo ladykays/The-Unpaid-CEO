@@ -1,19 +1,86 @@
 <%- include("partials/header.ejs") %>
 
 <main class="flex-grow">
-  <div class="bg-white shadow-sm">
+  <div class="bg-white shadow-sm pb-20">
     <!-- Hero Section -->
     <section class="bg-gray-900 text-white py-20">
-      <div class="container mx-auto px-4 text-center">
+      <div class="container mx-auto px-8 text-center">
         <h1 class="text-5xl lg:text-6xl font-display font-bold mb-6">
           Resources <span class="text-teal-400">Hub</span>
         </h1>
         <p class="text-2xl max-w-2xl mx-auto text-gray-200">
-          Free tools, templates, and guides to help you balance work, family, and personal growth.
+          Free tools, templates, and guides to help you balance work, family,
+          and personal growth.
         </p>
       </div>
     </section>
 
+    <!-- Resouces Section -->
+    <section class="py-10">
+      <div class="container mx-auto px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <% resources.forEach((resource, index) => { %>
+
+          <div
+            class="bg-white rounded-lg shadow-md overflow-hidden transition-all hover:shadow-lg"
+          >
+            <div class="h-60 overflow-hidden">
+              <img
+                src="<%= resource.image %>"
+                alt="<% resource.alt %>"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-7">
+              <h3 class="text-2xl font-bold text-gray-700 mb-4">
+                <%= resource.title %>
+              </h3>
+              <p class="text-gray-600 mb-8 text-xl line-clamp-3">
+                <%= resource.excerpt %>
+              </p>
+              <a
+                href="#"
+                class="inline-flex items-center px-4 py-2 bg-teal-400 text-white text-xl rounded-md hover:bg-teal-400/80 transition-colors"
+                download=""
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-download h-4 w-4 mr-2"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" x2="12" y1="15" y2="3"></line>
+                </svg>
+                Download
+              </a>
+            </div>
+          </div>
+          <%}) %>
+        </div>
+      </div>
+    </section>
+
+    <!-- Request Resource Section -->
+    <section class="py-20 bg-red-100/30">
+      <div class="container mx-auto px-8 text-center">
+        <h2 class="text-3xl md:text-5xl font-display font-bold text-gray-700 mb-9">
+          Can't Find What You Need?
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto mb-10 text-xl">
+          We're constantly creating new resources based on our community's needs. Let us know what would help you most in your journey.
+        </p>
+        <a href="#" class="inline-block bg-teal-400 hover:bg-teal-400/80 text-white text-xl px-6 py-3 rounded-md transition-colors" >Request a Resource</a>
+      </div>
+
+    </section>
   </div>
 </main>
 <%- include("partials/footer.ejs") %>

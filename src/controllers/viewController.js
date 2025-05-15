@@ -1,5 +1,6 @@
 import * as postModel from "../models/postModel.js";
 import { sortByRecentActivity } from "../utils/contentUtils.js";
+import { readResources } from "../services/fileServices.js";
 
 // Homepage
 export async function home(req, res) {
@@ -34,9 +35,20 @@ export function contact(req, res) {
 }
 
 // Resources page
-export function resources(req, res) {
-  res.render("resources.ejs", { currentPage: "resources" }); // Current page for navigation
-}
+export async function resources(req, res) {
+  try {
+    const resources = await readResources();
+
+    res.render("resources.ejs", { 
+      resources,
+      currentPage: "resources" 
+    }); 
+  } catch (error) {
+    console.error('Error loading resources: ', error);
+    res.status(500).send('Error loading resources');
+  }
+  }
+  
 
 // Create Post Form
 export function createPostForm(req, res) {

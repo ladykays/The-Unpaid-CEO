@@ -3,6 +3,7 @@ import {
   POSTS_FILE,
   CONTACT_FILE,
   SUBSCRIPTION_FILE,
+  RESOURCES_FILE
 } from "../config/constants.js";
 
 // Function to read a JSON file and return its content
@@ -47,3 +48,6 @@ export const readSubscriptions = () => readJsonFile(SUBSCRIPTION_FILE);
 // Write subscriptions to SUBSCRIPTION_FILE
 export const writeSubscriptions = (subscriptions) =>
   writeJsonFile(SUBSCRIPTION_FILE, subscriptions);
+
+// Read resources from RESOURCES_FILE
+export const readResources = () => readJsonFile(RESOURCES_FILE);
