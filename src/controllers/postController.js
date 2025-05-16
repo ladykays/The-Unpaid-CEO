@@ -151,9 +151,19 @@ export async function getPostsByCategory(req, res) {
   const { category } = req.params;
 
   try {
-    const allPosts = await postModel.getPostByCategory(category); // Get all the posts first
-    const filteredPosts = filterPostsByCategory(allPosts, category); // Filter the posts
-    const categories = extractCategories(allPosts);
+    //const allPosts = await postModel.getPostByCategory(category); // Get all the posts first
+    //const filteredPosts = filterPostsByCategory(allPosts, category); // Filter the posts
+    //const categories = extractCategories(allPosts);
+
+    // Get all posts first (not filtered)
+    const allPosts = await postModel.getAllPosts();
+
+    // Filter posts to just the category requested
+    const filteredPosts = filterPostsByCategory(allPosts, category);
+
+    // Extract categories from allposts 
+    const categories = extractCategories(allPosts); 
+    
     if (filteredPosts.length === 0) return res.status(404).render('posts.ejs', {
       message: "No posts found in this category",
       categories,
