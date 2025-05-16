@@ -18,16 +18,27 @@
       <h2><%= post.title %></h2>
       <a href="/posts" class="view-all">View all posts →</a>
     </div>
-    <!-- <p><%= post.content %></p> -->
+    <!-- <p><%# post.content %></p> -->
     <!-- <div class="post-content">
       <%#  post.content.replace(/\n/g, '<br>')  %>
     </div> -->
+    <!-- <div class="post-content">
+      <%# post.content.split('\n').forEach(paragraph => { %>
+        <%# if (paragraph.trim()) { %>
+          <p><%#-  paragraph.replace(/##\s*(.+)/g, '<strong>$1</strong>') %></p> <%# This replaces ## with <strong> making the text bold %>
+        <%# } %>
+      <%# }) %>
+    </div> -->
+
     <div class="post-content">
-      <% post.content.split('\n').forEach(paragraph => { %>
-        <% if (paragraph.trim()) { %>
-          <p><%-  paragraph.replace(/##\s*(.+)/g, '<strong>$1</strong>') %></p> <%# This replaces ## with <strong> making the text bold %>
+      <% const paragraphs = post.content.split('\n'); %>
+      <% paragraphs.forEach(para => { %>
+        <% if (para.trim()) { %>
+          <p>
+            <%- para.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') %>
+          </p>
         <% } %>
-      <% }) %>
+      <% }); %>
     </div>
     <div class="d-flex justify-content-between align-items-center flex-row mt-5">
     <p>Posted on: <%= new Date(post.createdAt).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}) %></p>
