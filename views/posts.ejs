@@ -1,63 +1,82 @@
 <%- include ("partials/header.ejs") %>
-<section class="hero">
-  <div
-    class="container-fluid w-75 mx-auto d-flex justify-content-center align-items-center flex-column"
-  >
-    <h1>The <span class="teal">Blog</span></h1>
-    <p class="content">
-      Insights, strategies, and inspiration for women balancing career, family,
-      and personal growth
-    </p>
+<main class="flex-grow">
+  <div class="bg-gray-100 pb-20">
+    <section class="bg-gray-900 text-white py-20">
+      <div class="container mx-auto text-center px-8">
+        <h1 class="text-5xl md:text-6xl font-display font-bold mb-8">
+          The <span class="text-teal-400">Blog</span>
+        </h1>
+        <p class="text-2xl max-w-2xl mx-auto text-gray-200">
+          Insights, strategies, and inspiration for women balancing career,
+          family, and personal growth
+        </p>
+      </div>
+    </section>
+    <section class="py-12">
+      <div class="container mx-auto px-8">
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex flex-wrap items-center justify-between gap-8">
+            <% if (typeof searchQuery !== 'undefined') { %>
+            <div class="alert alert-info mb-4">
+              <p class="mb-0">
+                Search results for: <strong><%= searchQuery %></strong>
+              </p>
+              <% if (posts.length === 0) { %>
+              <p class="mb-0">No posts found matching your search.</p>
+              <% } %>
+            </div>
+            <% } %>
+
+            <div class="relative w-full md:w-auto md:flex-grow md:max-w-md">
+              <!-- Search Bar -->
+              <input
+                type="text"
+                id="searchInput"
+                name="search"
+                placeholder=" Search posts..."
+                class="w-full pl-5 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
+              />
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <a class="px-8 py-3 rounded-md text-lg font-medium transition-colors <%= !activeCategory ? 'bg-teal-400 hover:bg-teal-400/80 text-white ' : 'bg-gray-200 hover:bg-gray-200/70 text-gray-700 ' %>" href="/posts">All Posts</a>
+              <% categories.forEach((category) => { %>
+              <a
+                href="/posts/category/<%= category.id %>"
+                class="px-8 py-3 rounded-md text-lg font-medium transition-colors <%= activeCategory === category.id ? 'bg-teal-400 text-white hover:bg-teal-400/80' : 'bg-gray-200 text-gray-700 hover:bg-gray-200/70' %>"
+              >
+                <%= category.name.replace(/\w\S*/g, txt =>
+                txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) %>
+                <%# Capitalize first character %>
+              </a>
+              <%});%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="py-12">
+      <div class="container mx-auto px-8">
+        <%- include("partials/blogCard.ejs") %>
+      </div>
+    </section>
   </div>
-</section>
-<section class="container-fluid main-content w-75 max-w-sm">
-  <% if (typeof searchQuery !== 'undefined') { %>
-    <div class="alert alert-info mb-4">
-      <p class="mb-0">Search results for: <strong><%= searchQuery %></strong></p>
-      <% if (posts.length === 0) { %>
-        <p class="mb-0">No posts found matching your search.</p>
-      <% } %>
-    </div>
-  <% } %>
-  <div class="d-flex">
-    <!-- Search Bar -->
-    <input
-      type="text"
-      id="searchInput"
-      name="search"
-      placeholder=" Search posts..."
-      class="p-2 searchbar w-50 p-4 border border-dark-sub rounded-5 focus:outline-none focus:ring-2 focus:ring-teal mr-4"
-    />
-  
-    <div class="d-flex flex-wrap gap-2">
-      <a 
-        class="btn btn-secondary m-2"
-        href="/posts"
-      >All Posts</a>
-      <% categories.forEach((category) => { %>
-        <a href="/posts/category/<%= category.id %>"
-        class="btn btn-secondary m-2">
-          <%= category.name.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) %> <%# Capitalize first character %>
-        </a>
-      <%});%>
-      
-    </div>
-  </div>
-  <%- include("partials/blogCard.ejs") %>
-</section>
+</main>
+
 <%- include ("partials/footer.ejs") %>
 
 <script>
   // Search functionality
-  document.getElementById('searchInput').addEventListener('keyup', function(e) {
-    if (e.key === 'Enter') {
-      const query = this.value.trim();
-      if (query) {
-        window.location.href = `/posts/search?q=${encodeURIComponent(query)}`;
-      } else {
-        // If search is empty, go back to all posts
-        window.location.href = '/posts'
-      }   
-    }
-  });
+  document
+    .getElementById("searchInput")
+    .addEventListener("keyup", function (e) {
+      if (e.key === "Enter") {
+        const query = this.value.trim();
+        if (query) {
+          window.location.href = `/posts/search?q=${encodeURIComponent(query)}`;
+        } else {
+          // If search is empty, go back to all posts
+          window.location.href = "/posts";
+        }
+      }
+    });
 </script>
