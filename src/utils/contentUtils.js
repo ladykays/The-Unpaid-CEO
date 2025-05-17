@@ -2,9 +2,31 @@ import { WORDS_PER_MINUTE } from "../config/constants.js";
 
 // Function to generate an excerpt from the content
 export function getExcerpt(content, length = 100) {
-  // Remove markdown-style bold syntax (**text** 👉 text)
-  const plainText = content.replace(/\*\*(.*?)\*\*/g, '$1') 
+  if (!content) return '';
 
+  // Remove markdown-style bold syntax (**text** 👉 text)
+  const plainText = content
+    // Remove headings (must come first)
+    .replace(/^#{1,6}\s+.*$/gm, '')  // Matches # Heading to ###### Heading
+    // Remove other markdown
+    .replace(/\*\*(.*?)\*\*/g, '$1')  // Bold
+    .replace(/\*(.*?)\*/g, '$1')      // Italics
+    .replace(/!?\[(.*?)\]\(.*?\)/g, '$1') // Links and images
+    .replace(/`{1,3}(.*?)`{1,3}/g, '$1') // Code
+    .replace(/~~(.*?)~~/g, '$1')      // Strikethrough
+    // Clean up whitespace
+    .replace(/\n+/g, ' ')             // Newlines to spaces
+    .replace(/\s+/g, ' ')             // Collapse spaces
+    .trim();
+
+    // If we removed everything, fallback to raw content
+  if (!plainText) {
+    plainText = content
+      .replace(/\n+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+  
   // Truncate and add ellipsis if needed
   const excerpt =
     plainText.length > length ? plainText.substring(0, length) + "..." : plainText; // Truncate content to the specified length

@@ -1,4 +1,6 @@
 import * as postModel from "../models/postModel.js"; // Import all exports from postModel
+import { marked } from 'marked';
+
 import { 
   sortByRecentActivity,
   extractCategories,
@@ -6,6 +8,25 @@ import {
   calculateReadingTime,
   getExcerpt,
 } from "../utils/contentUtils.js";
+
+
+// Configure marked
+marked.setOptions({
+  gfm: true,        // GitHub Flavored Markdown
+  breaks: true,     // Convert \n to <br>
+  xhtml: true       // Properly close tags (<br/> instead of <br>)
+}); 
+
+
+// Helper function for consistent parsing
+const parseMarkdown = (content) => {
+  try {
+    return marked.parse(content);
+  } catch (error) {
+    console.error("Markdown parsing error:", error);
+    return content; // Fallback to raw content
+  }
+};
 
 // Function to handle post searches
 export async function searchPosts(req, res) {
@@ -116,11 +137,17 @@ export async function getPostById(req, res) {
   try {
     const post = await postModel.getPostById(id);
     if (!post) return res.status(404).send("Post not found");
+    
+    const parsed = marked.parse(post.content); 
+
     res.render('blogPost.ejs', {
-      post,
+      post: {
+        ...post,
+        content: parsed  
+      },
       readingTime: calculateReadingTime(post.content),
       excerpt: getExcerpt(post.content),
-      currentPage:'post'
+      currentPage:'post',
     });
   } catch (error) {
     console.error("Error fetching post:", error);
@@ -134,11 +161,17 @@ export async function getPostByTitle(req, res) {
   try {
     const post = await postModel.getPostByTitle(title);
     if (!post) return res.status(404).send("Post not found");
+
+    const parsed = marked.parse(post.content); 
+
     res.render('blogPost.ejs', { 
-      post,
+      post: {
+        ...post,
+        content: parsed,
+      },
       readingTime: calculateReadingTime(post.content),
       excerpt: getExcerpt(post.content),
-      currentPage:'post'
+      currentPage:'post',
     });
   } catch (error) {
     console.error("Error fetching post:", error);
