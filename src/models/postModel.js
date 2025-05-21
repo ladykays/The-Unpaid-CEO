@@ -1,5 +1,5 @@
 import { readPosts, writePosts } from "../services/fileServices.js";
-import { calculateReadingTime, getExcerpt } from "../utils/contentUtils.js"; // Import utility functions for content processing
+import { calculateReadingTime, cleanMarkdown } from "../utils/contentUtils.js"; // Import utility functions for content processing
 import { v4 as uuidv4 } from "uuid"; // Import the UUID library to generate unique IDs
 
 //Fetch all blog posts from the JSON file storage.
@@ -48,7 +48,7 @@ export async function createPost(postData) {
     category: postData.category || "Uncategorized", // Default category if none is provided
     image: postData.image || "/images/default.jpg", // Default image if none is provided
     createdAt: new Date().toISOString(), // Store the creation date in ISO format
-    excerpt: getExcerpt(postData.content), // Generate an excerpt from the content
+    excerpt: cleanMarkdown(postData.content, 100), // Generate an excerpt from the content
     readingTime: calculateReadingTime(postData.content), // Calculate the reading time for the content
   };
   posts.push(newPost); // Add the new post to the array of posts

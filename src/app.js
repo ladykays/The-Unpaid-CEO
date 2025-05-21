@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import viewRoutes from "./routes/viewRoutes.js";
 import { PORT } from "./config/constants.js"; 
+import { cleanMarkdown } from "./utils/contentUtils.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url)); //
 
@@ -18,6 +19,7 @@ const app = express();
 configureMiddleware(app); // Call the middleware configuration function
 app.use('/', viewRoutes); // Use the routes defined in viewRoutes.js
 
+app.locals.cleanMarkdown = cleanMarkdown;
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`); // Log the server URL

@@ -4,6 +4,7 @@ import * as postController from '../controllers/postController.js';
 import * as viewController from '../controllers/viewController.js';
 import * as contactController from '../controllers/contactController.js';
 import * as subscriptionController from '../controllers/subscriptionController.js';
+import { cleanMarkdown } from '../utils/contentUtils.js';
 
 
 const router = express.Router();

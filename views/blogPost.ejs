@@ -26,8 +26,9 @@
               .replace(/(^| |-)\w/g, char => char.toUpperCase()) 👈 Capitalize first letter of each word (including after hyphens)(eg: Work-Life Balance)
             -->
             <%= typeof categoryName === 'string' ?
-            categoryName.replace(/-([^-]*)$/, ' $1') .replace(/(^| |-)\w/g, char
-            => char.toUpperCase()) : 'Uncategorized' %>
+            categoryName.replace(/-([^-]*)$/, ' $1').replace(/(^| |-)\w/g, function(char) {
+              return char.toUpperCase();
+             }) : 'Uncategorized' %>
           </span>
           <h1
             class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white max-w-4xl"
