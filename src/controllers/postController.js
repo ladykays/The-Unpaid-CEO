@@ -272,6 +272,7 @@ export async function updatePost(req, res) {
       formData: req.body,
       postId: id,
       currentPage: "editPost",
+      cleanMarkdown,
     });
   }
 }

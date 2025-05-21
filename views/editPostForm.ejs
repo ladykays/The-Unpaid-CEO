@@ -1,63 +1,83 @@
 <%- include("partials/header.ejs") %>
 
-<section class="container-fluid main-content">
-  <h1>Edit Post</h1>  
-
-  <div>
-    <form action="/posts/update/<%= postId %>" method="POST">
-      <div class="mb-3">
-        <label for="title" class="form-label">Post Title</label>
-        <input type="text" class="form-control" id="title" name="title" required value="<%= postTitle %>" >
-      </div>
-      <div class="mb-3">
-        <label for="category" class="form-label">Category</label>
-        <select id="category" name="category" class="form-control">
-          <option value="" disabled selected>Select a category</option>
-          <option value="family">Family</option>
-          <option value="finance">Finance</option>
-          <option value="health">Health</option>
-          <option value="home">Home</option>
-          <option value="lifestyle">Lifestyle</option>
-          <option value="mindfulness">Mindfulness</option>
-          <option value="parenting">Parenting</option>
-          <option value="personal-development">Personal Development</option>
-          <option value="productivity">Productivity</option>
-          <option value="relationships">Relationships</option>
-          <option value="self-care">Self Care</option>
-          <option value="work-life-balance">Work-Life Balance</option>
-        </select>
-      </div>
-      <div class="mb-3">
-        <label for="image" class="form-label">Cover Image URL</label>
-        <input 
-          type="url" 
-          class="form-control" 
-          id="image" 
-          name="image" 
-          value="<%= postImage === '/images/default.jpg' ? '' : postImage %>" 
-          <%# placeholder="Leave empty to use default image" %>
-        >
-        <small class="form-text text-muted">
-          Current image: 
-          <% if (postImage === '/images/default.jpg') { %>
-            (using default image)
-          <% } else { %>
-            <img src="<%= postImage %>" width="100">
-          <% } %>
-        </small>
-      </div>
-      <div class="mb-3">
-        <label for="content" class="form-label">Post Content</label>
-        <p><small class="text-secondary">For subtitles, type ## before the text</small></p>
-        <textarea class="form-control" id="content" name="content" rows="5" required><%= postContent %></textarea>
-      </div>
-      <div class="mt-5">
-        <button type="submit" class="btn btn-warning btn-lg publish-btn">Update Post</button>
-      </div>
+<main class="flex-grow">
+    <div class="bg-gray-100 shadow-sm pb-20">
+      <!-- Hero Section -->
+      <section class="bg-gray-900 text-white py-24">
+        <div class="container mx-auto px-8 text-center">
+          <h1 class="text-5xl lg:text-6xl font-display font-bold mb-9">Edit <span class="text-teal-400">Post</span></h1>  
+        </div>
+      </section>
+  
+      <section class="py-20">
+        <div class="container mx-auto px-8">
+          <div class="max-w-3xl mx-auto">
+            <form action="/posts/update/<%= postId %>" method="POST" class="bg-white rounded-lg shadow-md p-8">
+              <div class="mb-8">
+                <label for="title" class="block text-gray-700 text-xl font-semibold mb-2">Post Title <span class="text-red-700">*</span></label>
+                <input type="text" class="w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400" id="title" name="title" required value="<%= postTitle %>" >
+              </div>
+              <div class="mb-8">
+                <label for="category" class="block text-gray-700 text-xl font-semibold mb-2">Category</label>
+                <select id="category" name="category" class="w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400">
+                  <option value="" disabled selected>Select a category</option>
+                  <option value="family">Family</option>
+                  <option value="finance">Finance</option>
+                  <option value="health">Health</option>
+                  <option value="home">Home</option>
+                  <option value="lifestyle">Lifestyle</option>
+                  <option value="mindfulness">Mindfulness</option>
+                  <option value="parenting">Parenting</option>
+                  <option value="personal-development">Personal Development</option>
+                  <option value="productivity">Productivity</option>
+                  <option value="relationships">Relationships</option>
+                  <option value="self-care">Self Care</option>
+                  <option value="work-life-balance">Work-Life Balance</option>
+                </select>
+              </div>
+              <div class="mb-8">
+                <label for="image" class="block text-gray-700 text-xl font-semibold mb-2">Cover Image URL</label>
+                <input 
+                  type="url" 
+                  class="w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400" 
+                  id="image" 
+                  name="image" 
+                  value="<%= postImage === '/images/default.jpg' ? '' : postImage %>" 
+                  <%# placeholder="Leave empty to use default image" %>
+                >
+                <small class="form-text text-muted">
+                  Current image: 
+                  <% if (postImage === '/images/default.jpg') { %>
+                    (using default image)
+                  <% } else { %>
+                    <img src="<%= postImage %>" width="100">
+                  <% } %>
+                </small>
+              </div>
+              <div class="mb-3">
+                <label for="content" class="block text-gray-700 text-xl font-semibold mb-2">Post Content <span class="text-red-700">*</span></label>
+                <p class="text-gray-500 mb-4 text-sm leading-relaxed">
+                  <i class="fas fa-lightbulb fa-2x mr-1 text-yellow-400"></i> 
+                  <span class="font-semibold text-gray-600">Formatting Tips:</span><br/>  
+                  • Separate paragraphs with blank lines.<br>  
+                  • Wrap text in <code class="px-1 py-0.5 bg-gray-100 rounded">**asterisks**</code> for <strong>bold</strong>.<br>  
+                  • Headings: <code class="px-1 py-0.5 bg-gray-100 rounded"># Main</code>, <code class="px-1 py-0.5 bg-gray-100 rounded">## Section</code>, <code class="px-1 py-0.5 bg-gray-100 rounded">### Subsection</code>  
+                </p>
+                <textarea class="w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400" id="content" name="content" rows="20" required><%= postContent %></textarea>
+              </div>
+              <div class="mt-5">
+                <button type="submit" class="bg-teal-400 hover:bg-teal-400/80 text-white text-lg px-7 py-3 rounded-md transition-colors">Update Post</button>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  
       
-    </form>
-  </div>
-</section>
+</main>
+
 <script>
   // Preselect the category in the dropdown
   document.addEventListener('DOMContentLoaded', function() {
