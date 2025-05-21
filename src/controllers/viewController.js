@@ -1,5 +1,5 @@
 import * as postModel from "../models/postModel.js";
-import { sortByRecentActivity } from "../utils/contentUtils.js";
+import { cleanMarkdown, sortByRecentActivity } from "../utils/contentUtils.js";
 import { readResources } from "../services/fileServices.js";
 
 // Homepage
@@ -20,6 +20,7 @@ export async function home(req, res) {
     res.render("index.ejs", {
       posts: [],
       currentPage: "home",
+      //cleanMarkdown,
     }); // Render with empty posts array
   }
 }

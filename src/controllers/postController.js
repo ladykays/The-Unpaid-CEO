@@ -1,11 +1,33 @@
 import * as postModel from "../models/postModel.js"; // Import all exports from postModel
+import { marked } from 'marked';
+
 import { 
   sortByRecentActivity,
   extractCategories,
   filterPostsByCategory,
   calculateReadingTime,
-  getExcerpt,
+  cleanMarkdown,
 } from "../utils/contentUtils.js";
+
+
+// Configure marked liberary for passing markdown into HTML
+marked.setOptions({
+  gfm: true,        // Enable GitHub Flavored Markdown
+  breaks: true,     // Convert \n to <br>
+  xhtml: true       // Properly close tags (<br/> instead of <br>)
+}); 
+
+
+// Helper function for consistent parsing of markdown content to HTML
+const parseMarkdown = (content) => { //take a content string as input
+  try {
+    return marked.parse(content); //convert markdown to HTML
+  } catch (error) {
+    console.error("Markdown parsing error:", error);
+    return content; // Fallback to raw content
+  }
+};
+
 
 // Function to handle post searches
 export async function searchPosts(req, res) {
@@ -49,7 +71,7 @@ export async function searchPosts(req, res) {
       // Check for matches in title, content, or category
       return (
         post.title.toLowerCase().includes(searchTerm) ||
-        post.content.toLowerCase().includes(searchTerm) ||
+        cleanMarkdown(post.content).toLowerCase().includes(searchTerm) ||
         post.category.toLowerCase().includes(searchTerm)
       );
     });
@@ -66,6 +88,7 @@ export async function searchPosts(req, res) {
       isHyperlink: true, // Make titles clickable
       currentPage: 'posts', // Active nav item
       searchQuery: q, // Display searched term
+      cleanMarkdown,
     });
 
   } catch (error) {
@@ -96,6 +119,7 @@ export async function getAllPosts(req, res) {
       showReadMore: false, // Don't show "Read More" button
       isHyperlink: true, // Make it a hyperlink
       currentPage: 'posts', // Current page for navigation
+      cleanMarkdown,
     });
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -116,11 +140,17 @@ export async function getPostById(req, res) {
   try {
     const post = await postModel.getPostById(id);
     if (!post) return res.status(404).send("Post not found");
+    
+    const parsed = marked.parse(post.content); 
+
     res.render('blogPost.ejs', {
-      post,
+      post: {
+        ...post,
+        content: parsed  
+      },
       readingTime: calculateReadingTime(post.content),
-      excerpt: getExcerpt(post.content),
-      currentPage:'post'
+      excerpt: cleanMarkdown(post.content, 100),
+      currentPage:'post',
     });
   } catch (error) {
     console.error("Error fetching post:", error);
@@ -134,11 +164,17 @@ export async function getPostByTitle(req, res) {
   try {
     const post = await postModel.getPostByTitle(title);
     if (!post) return res.status(404).send("Post not found");
+
+    const parsed = marked.parse(post.content); 
+
     res.render('blogPost.ejs', { 
-      post,
+      post: {
+        ...post,
+        content: parsed,
+      },
       readingTime: calculateReadingTime(post.content),
       excerpt: getExcerpt(post.content),
-      currentPage:'post'
+      currentPage:'post',
     });
   } catch (error) {
     console.error("Error fetching post:", error);
@@ -178,6 +214,7 @@ export async function getPostsByCategory(req, res) {
       showReadMore: false, // Don't show "Read More" button
       isHyperlink: true, // Make it a hyperlink
       currentPage: 'posts', // Current page for navigation
+      cleanMarkdown,
     });
   } catch (error) {
     console.error("Error fetching posts by category:", error);
@@ -265,6 +302,7 @@ export async function getRecentPosts(req, res) {
       showReadMore: true, // Show "Read More" button
       isHyperlink: false, // Make it a hyperlink
       currentPage: "home", // Current page for navigation
+      cleanMarkdown
     });
   } catch (error) {
     console.error("Error fetching recent posts:", error);
@@ -272,6 +310,7 @@ export async function getRecentPosts(req, res) {
     res.render("index.ejs", {
       posts: [],
       currentPage: "home",
+      cleanMarkdown
     }); // Render with empty posts array
   }
 }

@@ -1,11 +1,14 @@
 import express from 'express';
+
 import * as postController from '../controllers/postController.js';
 import * as viewController from '../controllers/viewController.js';
 import * as contactController from '../controllers/contactController.js';
 import * as subscriptionController from '../controllers/subscriptionController.js';
+import { cleanMarkdown } from '../utils/contentUtils.js';
 
 
 const router = express.Router();
+
 
 // View Routes
 router.get('/', viewController.home); 
@@ -27,6 +30,8 @@ router.post('/posts/update/:id', postController.updatePost); // Update Post
 router.post('/posts/delete/:id', postController.deletePost); // Delete Post
 router.post('/contact', contactController.handleContactFormSubmission)
 router.post('/subscribe', subscriptionController.handleSubscriberFormSubmission)
+
+
 
 export default router;
 

@@ -1,15 +1,60 @@
 import { WORDS_PER_MINUTE } from "../config/constants.js";
 
-// Function to generate an excerpt from the content
-export function getExcerpt(content, length = 100) {
-  // Remove markdown-style bold syntax (**text** 👉 text)
-  const plainText = content.replace(/\*\*(.*?)\*\*/g, '$1') 
 
-  // Truncate and add ellipsis if needed
-  const excerpt =
-    plainText.length > length ? plainText.substring(0, length) + "..." : plainText; // Truncate content to the specified length
-    
-  return excerpt;
+// Function to clean markdown 
+export function cleanMarkdown(content, length = null) {
+  
+  // If no content is provided, return an empty string
+  if (!content) return '';
+
+  // Convert markdown content to plain text
+  const plainText = content
+    // Remove markdown headings like "# Heading", "## Subheading", etc.
+    .replace(/^#{1,6}\s+.*$/gm, '')  // Matches lines starting with 1–6 '#' followed by space and text
+
+    // Remove bold markdown syntax: **bold** becomes bold
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+
+    // Remove italic markdown syntax: *italic* becomes italic
+    .replace(/\*(.*?)\*/g, '$1')
+
+    // Remove links and images: [text](url) or ![alt](url) becomes just "text" or "alt"
+    .replace(/!?\[(.*?)\]\(.*?\)/g, '$1')
+
+    // Remove inline code: `code` or ```code``` becomes just "code"
+    .replace(/`{1,3}(.*?)`{1,3}/g, '$1')
+
+    // Remove strikethrough: ~~text~~ becomes text
+    .replace(/~~(.*?)~~/g, '$1')
+
+    // Remove emoji/icons (basic unicode emoji pattern)
+    .replace(
+      /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF])/g,
+      ''
+    )
+
+    // Replace one or more newlines with a single space
+    .replace(/\n+/g, ' ')
+
+    // Collapse multiple spaces into one
+    .replace(/\s+/g, ' ')
+
+    // Remove leading and trailing whitespace
+    .trim();
+
+  // If all markdown removal results in an empty string, fallback to using raw content (with just whitespace cleaned)
+  if (!plainText) {
+    plainText = content
+      .replace(/\n+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  if (length && plainText.length > length) {
+    return plainText.substring(0, length) + '...';
+  }
+
+  return plainText;
 }
 
 // Function to calculate reading time based on content length
