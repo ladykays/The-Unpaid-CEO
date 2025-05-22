@@ -112,7 +112,7 @@ export function extractCategories(posts) {
 }
 
 // Helper function to create URL-friendly category IDs
-function slugifyCategory(category) {
+export function slugifyCategory(category) {
   return category.toLowerCase() // Convert to lowercase
     .replace(/\s+/g, '-')       // Replace spaces with -
     .replace(/[^\w-]+/g, '');   // Remove all non-word characters or hyphens
@@ -128,3 +128,43 @@ export function filterPostsByCategory(posts, categoryId) {
     slugifyCategory(post.category) === categoryId
   );
 }
+
+// Get related posts based on category and exclude the current post
+// Updated and corrected getRelatedPosts function
+export function getRelatedPosts(currentPost, allPosts, options = {}) {
+  const {
+    limit = 3,
+    sortByRecent = true
+  } = options;
+
+  // Ensure we have valid inputs
+  if (!currentPost || !allPosts || !Array.isArray(allPosts)) {
+    return [];
+  }
+
+  // Filter out the current post and get posts from same category
+  const relatedPosts = allPosts.filter(post => {
+    // Skip if post is missing required fields
+    if (!post || !post.id || !post.category) return false;
+    
+    return (
+      post.id !== currentPost.id && 
+      slugifyCategory(post.category) === slugifyCategory(currentPost.category)
+    );
+  });
+
+  // If there are no related posts or limit is 0, return empty array
+  if (relatedPosts.length === 0 || limit <= 0) {
+    return [];
+  }
+
+  // Sort by most recent activity if enabled
+  if (sortByRecent) {
+    const sorted = sortByRecentActivity(relatedPosts);
+    return sorted.slice(0, limit);
+  }
+
+  // Otherwise just return the first N posts
+  return relatedPosts.slice(0, limit);
+}
+
