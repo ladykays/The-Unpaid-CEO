@@ -7,6 +7,8 @@ import {
   filterPostsByCategory,
   calculateReadingTime,
   cleanMarkdown,
+  getRelatedPosts,
+  slugifyCategory
 } from "../utils/contentUtils.js";
 
 
@@ -140,7 +142,22 @@ export async function getPostById(req, res) {
   try {
     const post = await postModel.getPostById(id);
     if (!post) return res.status(404).send("Post not found");
-    
+
+    // Get all posts
+    const allPosts = await postModel.getAllPosts();
+
+    const categories = extractCategories(allPosts);
+
+    // Get related posts based on the current post's category. Sort them by recent activity
+    const relatedPosts = getRelatedPosts(post, allPosts, {limit: 3 }); // Show 3 related posts
+
+    // Get the current post's category ID
+    const currentCategory = typeof post.category === 'object' 
+      ? post.category.id 
+      : slugifyCategory(post.category);
+
+      
+    // Parse the content using marked
     const parsed = marked.parse(post.content); 
 
     res.render('blogPost.ejs', {
@@ -151,6 +168,10 @@ export async function getPostById(req, res) {
       readingTime: calculateReadingTime(post.content),
       excerpt: cleanMarkdown(post.content, 100),
       currentPage:'post',
+      relatedPosts,
+      cleanMarkdown,
+      categories,
+      activeCategory: currentCategory, // Set the active category for the sidebar
     });
   } catch (error) {
     console.error("Error fetching post:", error);
@@ -165,6 +186,18 @@ export async function getPostByTitle(req, res) {
     const post = await postModel.getPostByTitle(title);
     if (!post) return res.status(404).send("Post not found");
 
+    // Get all posts
+    const allPosts = await postModel.getAllPosts();
+
+    // Get related posts based on the current post's category. Sort them by recent activity
+    const relatedPosts = getRelatedPosts(post, allPosts, {limit: 3 }); // Show 3 related posts
+
+    // Get the current post's category ID
+    const currentCategory = typeof post.category === 'object' 
+      ? post.category.id 
+      : slugifyCategory(post.category);
+    
+    // Parse the content using marked
     const parsed = marked.parse(post.content); 
 
     res.render('blogPost.ejs', { 
@@ -175,6 +208,10 @@ export async function getPostByTitle(req, res) {
       readingTime: calculateReadingTime(post.content),
       excerpt: getExcerpt(post.content),
       currentPage:'post',
+      relatedPosts,
+      cleanMarkdown,
+      categories,
+      activeCategory: currentCategory, // Set the active category for the sidebar
     });
   } catch (error) {
     console.error("Error fetching post:", error);
@@ -315,3 +352,4 @@ export async function getRecentPosts(req, res) {
     }); // Render with empty posts array
   }
 }
+
