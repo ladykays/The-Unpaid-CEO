@@ -338,7 +338,7 @@ export async function getRecentPosts(req, res) {
       //posts: sortByRecentActivity(recentPosts),
       showActions: false, // Show edit and delete buttons
       showReadMore: true, // Show "Read More" button
-      isHyperlink: false, // Make it a hyperlink
+      isHyperlink: true, // Make it a hyperlink
       currentPage: "home", // Current page for navigation
       cleanMarkdown
     });
