@@ -48,8 +48,13 @@ export async function resources(req, res) {
     console.error('Error loading resources: ', error);
     res.status(500).send('Error loading resources');
   }
-  }
+}
   
+
+//Login 
+export function login(req, res) {
+  res.render("login.ejs", { currentPage: "login" }); // Current page for navigation
+}
 
 // Create Post Form
 export function createPostForm(req, res) {

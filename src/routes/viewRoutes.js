@@ -15,6 +15,7 @@ router.get('/', viewController.home);
 router.get('/about', viewController.about);
 router.get('/contact', viewController.contact); 
 router.get('/resources', viewController.resources); // Resources page
+router.get('/login', viewController.login);
 router.get('/createPostForm', viewController.createPostForm); 
 router.get('/posts', postController.getAllPosts); 
 router.get('/', postController.getRecentPosts); 
