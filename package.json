@@ -1,6 +1,6 @@
 {
   "name": "blog-web-app",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A Blog web application using Node.js, Express.js, and EJS. ",
   "main": "app.js",
   "type": "module",

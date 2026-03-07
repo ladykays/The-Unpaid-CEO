@@ -1,6 +1,5 @@
 import { WORDS_PER_MINUTE } from "../config/constants.js";
 
-
 // Function to clean markdown 
 export function cleanMarkdown(content, length = null) {
   
