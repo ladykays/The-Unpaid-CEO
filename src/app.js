@@ -1,9 +1,20 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import env from "dotenv";
+
+env.config();
+
 import viewRoutes from "./routes/viewRoutes.js";
 import { PORT } from "./config/constants.js"; 
 import { cleanMarkdown } from "./utils/contentUtils.js";
+import pg from "pg";
+import bcrypt from "bcrypt"; 
+import passport from "passport";
+import { Strategy } from "passport-local";
+import GoogleStrategy from "passport-google-oauth2";
+
+
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url)); //
 

@@ -1,13 +1,27 @@
 import express from 'express';
 import fs from 'fs/promises'; //for file operations
+import session from "express-session";
+import bodyParser from 'body-parser';
+
 
 const app = express();
 const port = 3000;
+const saltRounds = 10;
 const POSTS_FILE = 'posts.json'; // File to store posts
 
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
+
 // Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public')); // Serve static files from the "public" directory
-app.use(express.urlencoded({ extended: true })); // To parse form data
+//app.use(express.urlencoded({ extended: true })); // To parse form data
 
 
 
