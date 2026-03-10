@@ -319,6 +319,28 @@ export async function updatePost(id, updatedData, userId) {
 
 // Delete a blog post
 export async function deletePost(id, userId) {
+  try {
+    const postToDelete = await getPostById(id);
+    if (!postToDelete) return null;
+
+    // Check if user is autthorized to delete post
+    if (postToDelete.userId !== userId) {
+      throw new Error("You are not authorised to delete this post!");
+    };
+
+    const result = await db.query(
+      `DELETE FROM posts WHERE id = $1 AND user_id = $2 RETURNING id`, [id, userId]
+    );
+    const deletedAt = result.rows[0].deleted_at;
+    console.log(`${postToDelete.title} was deleted on ${deletedAt}`)
+
+    if (result.rows.length === 0) return null;
+
+    return deletedAt;
+  } catch (err) {
+    console.log("Error deleting post: ", err);
+    throw err;
+  }
   
   /* const posts = await readPosts(); 
   const postIndex = posts.findIndex((post) => post.id === id); // Find the index of the post to delete
@@ -336,4 +358,39 @@ export async function deletePost(id, userId) {
   await writePosts(posts); // Write the updated posts array back to the JSON file
   return deletedAt;  */
 
+};
+
+// Get post by a specific user
+export async function getPostByUser(userId) {
+  try {
+    const result = await db.query(
+      `SELECT p.*, u.name, u.email
+      FROM posts p
+      LEFT JOIN users u ON p.user_id = u.id
+      WHERE p.user_id = $1
+      ORDER BY p.created_at DESC
+      `, [userId]
+    );
+
+    return result.rows.map(post => ({
+      id: post.id,
+      userId: post.user_id,
+      author: {
+        id: post.user_id,
+        name: post.author_name,
+        email: post.author_email
+      },
+      title: post.title,
+      category: post.category,
+      image: post.image,
+      content: post.content,
+      readingTime: post.reading_time,
+      excerpt: post.excerpt,
+      createdAt: post.created_at,
+      updatedAt: post.updated_at
+    }));
+  } catch (err) {
+    console.log("Error fetching post by user: ", err);
+    throw err;
+  }
 }
