@@ -14,20 +14,24 @@ export async function home(req, res) {
       showReadMore: true, // Show "Read More" button
       isHyperlink: false, // Don't make it a hyperlink
       currentPage: "home", // Current page for navigation
+      user: req.session.user || null
     });
   } catch (error) {
     console.error("Homepage error:", error);
     res.render("index.ejs", {
       posts: [],
       currentPage: "home",
-      //cleanMarkdown,
-    }); // Render with empty posts array
+      //user: req.session.user || null
+    }); 
   }
 }
 
 // About page
 export function about(req, res) {
-  res.render("about.ejs", { currentPage: "about" }); // Current page for navigation
+  res.render("about.ejs", { 
+    currentPage: "about",
+    //user: req.session.user || null 
+  }); // Current page for navigation
 }
 
 // Contact page
@@ -42,7 +46,8 @@ export async function resources(req, res) {
 
     res.render("resources.ejs", { 
       resources,
-      currentPage: "resources" 
+      currentPage: "resources",
+      //user: req.session.user || null 
     }); 
   } catch (error) {
     console.error('Error loading resources: ', error);
@@ -53,12 +58,42 @@ export async function resources(req, res) {
 
 //Login 
 export function login(req, res) {
-  res.render("login.ejs", { currentPage: "login" }); // Current page for navigation
+  // If user is already logged in, redirect to home
+  if(req.session.user) {
+    return res.redirect("/");
+  }
+  res.render("login.ejs", { 
+    currentPage: "login",
+    user: null, 
+    message: null
+  }); // Current page for navigation
 }
 
 // Create Post Form
 export function createPostForm(req, res) {
-  res.render("createPostForm.ejs", { currentPage: "createPost" }); // Current page for navigation
+  // Check if user is logged in
+  if (!req.session.user) {
+    return res.redirect("/login?message=Please log in to create a post");
+  }
+  
+  res.render("createPostForm.ejs", { 
+    currentPage: "createPost",
+    user: req.session.user 
+  }); // Current page for navigation
+}
+
+// Register form
+export function registerForm(req, res) {
+  // If user is already logged in, redirect to home
+  if (req.session.user) {
+    return res.redirect("/");
+  }
+  
+  res.render("register.ejs", { 
+    currentPage: "register",
+    user: null,
+    message: null
+  });
 }
 
 

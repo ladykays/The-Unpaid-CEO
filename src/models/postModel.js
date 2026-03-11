@@ -179,7 +179,7 @@ export async function getPostByCategory(category) {
   return filteredPosts; // Filter and return posts with the matching category */
 };
 
-// Fetch posts by user ID
+// Fetch posts by specific user ID
 export async function getPostsByUserId(userId) {
   try {
     const result = await db.query(
@@ -211,6 +211,19 @@ export async function getPostsByUserId(userId) {
   } catch (error) {
     console.error('Error fetching posts by user ID:', error);
     throw error;
+  }
+};
+
+// Fetch posts by currently logged in user
+export async function getMyPosts(req, res) {
+  try {
+    const userId = req.session.user.id; // get userId from session
+    const myPosts = await getPostsByUserId(userId);
+    
+    res.render("myPosts.ejs", { posts: myPosts});
+  } catch (err) {
+    console.log("Error getting your posts: ", err);
+    throw err;
   }
 }
 

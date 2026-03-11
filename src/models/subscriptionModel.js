@@ -1,7 +1,21 @@
-import { readSubscriptions, writeSubscriptions } from "../services/fileServices.js";
+//import { readSubscriptions, writeSubscriptions } from "../services/fileServices.js";
+import db from "../config/db.js";
+
+export async function subcription() {
+  try {
+    const result = await db.query(
+      `INSERT INTO subscriptions (email)
+      VALUES ($1) ON CONFLICT (email) DO NOTHING RETRURNING *` [email]
+    );
+    return result.rows[0];
+  } catch(err) {
+    console.log("Error creating subscription: ", err);
+    throw err;
+  }
+};
 
 // Contact form submission handler
-export async function handleSubscribeFormSubmission(subscribeData) {
+/* export async function handleSubscribeFormSubmission(subscribeData) {
   try {
     const subscribers = await readSubscriptions();
 
@@ -18,4 +32,4 @@ export async function handleSubscribeFormSubmission(subscribeData) {
     throw error;
   }
   
-}
+} */

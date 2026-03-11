@@ -56,7 +56,7 @@ export async function searchPosts(req, res) {
       throw new Error('Posts data is not an array');
     }
 
-    // Extract unique categories for sidebar filtering
+    // Extract unique categories for filtering
     const categories = extractCategories(posts);
     
     // Prepare search term (case-insensitive)
@@ -91,6 +91,7 @@ export async function searchPosts(req, res) {
       currentPage: 'posts', // Active nav item
       searchQuery: q, // Display searched term
       cleanMarkdown,
+      user: req.session.user || null // Pass user to template
     });
 
   } catch (error) {
@@ -101,7 +102,8 @@ export async function searchPosts(req, res) {
       message: 'Error performing search',
       currentPage: 'posts',
       posts: [],
-      categories: []
+      categories: [],
+      user: req.user.session || null
     });
   }
 }
@@ -122,6 +124,7 @@ export async function getAllPosts(req, res) {
       isHyperlink: true, // Make it a hyperlink
       currentPage: 'posts', // Current page for navigation
       cleanMarkdown,
+      user: req.session.user || null
     });
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -143,10 +146,8 @@ export async function getPostById(req, res) {
     const post = await postModel.getPostById(id);
     if (!post) return res.status(404).send("Post not found");
 
-    // Get all posts
-    const allPosts = await postModel.getAllPosts();
-
-    const categories = extractCategories(allPosts);
+    const allPosts = await postModel.getAllPosts(); // Get all posts
+    const categories = extractCategories(allPosts); 
 
     // Get related posts based on the current post's category. Sort them by recent activity
     const relatedPosts = getRelatedPosts(post, allPosts, {limit: 3 }); // Show 3 related posts
@@ -171,7 +172,9 @@ export async function getPostById(req, res) {
       relatedPosts,
       cleanMarkdown,
       categories,
-      activeCategory: currentCategory, // Set the active category for the sidebar
+      activeCategory: currentCategory, // Set the active category 
+      user: req.session.user || null,
+      isAuthor: req.session.user && req.session.user.id === post.userId // Check if current user is the author
     });
   } catch (error) {
     console.error("Error fetching post:", error);
@@ -211,7 +214,9 @@ export async function getPostByTitle(req, res) {
       relatedPosts,
       cleanMarkdown,
       categories,
-      activeCategory: currentCategory, // Set the active category for the sidebar
+      activeCategory: currentCategory, // Set the active category
+      user: req.session.user || null,
+      isAuthor: req.session.user && req.session.user.id === post.userId // Check if current user is the author
     });
   } catch (error) {
     console.error("Error fetching post:", error);
@@ -224,14 +229,10 @@ export async function getPostsByCategory(req, res) {
   const { category } = req.params;
 
   try {
-    //const allPosts = await postModel.getPostByCategory(category); // Get all the posts first
-    //const filteredPosts = filterPostsByCategory(allPosts, category); // Filter the posts
-    //const categories = extractCategories(allPosts);
-
     // Get all posts first (not filtered)
     const allPosts = await postModel.getAllPosts();
 
-    // Filter posts to just the category requested
+    // Filter posts to get just the category requested
     const filteredPosts = filterPostsByCategory(allPosts, category);
 
     // Extract categories from allposts 
@@ -240,7 +241,8 @@ export async function getPostsByCategory(req, res) {
     if (filteredPosts.length === 0) return res.status(404).render('posts.ejs', {
       message: "No posts found in this category",
       categories,
-      currentPage: 'posts'
+      currentPage: 'posts',
+      user: req.session.user || null
     });
 
     res.render('posts.ejs', {
@@ -252,6 +254,7 @@ export async function getPostsByCategory(req, res) {
       isHyperlink: true, // Make it a hyperlink
       currentPage: 'posts', // Current page for navigation
       cleanMarkdown,
+      user: req.session.user || null
     });
   } catch (error) {
     console.error("Error fetching posts by category:", error);
@@ -265,6 +268,15 @@ export async function getEditForm(req, res) {
   try {
     const post = await postModel.getPostById(id);
     if (!post) return res.status(404).send("Post not found");
+
+    // Check if user is authorized to edit this post
+    if (!req.session.user || req.session.user.id !== post.userId) {
+      return res.status(403).render(error.ejs, {
+        message: "You are not authorized to edit this post",
+        currentPage: "error",
+        user: req.session.user || null
+      });
+    }
     res.render("editPostForm.ejs", {
       postTitle: post.title,
       postContent: post.content,
@@ -272,6 +284,7 @@ export async function getEditForm(req, res) {
       postCategory: post.category,
       postImage: post.image,
       currentPage: "editPost", // Current page for navigation
+      user: req.session.user || null
     });
   } catch (error) {
     console.error("Edit post form error:", error);
@@ -282,6 +295,14 @@ export async function getEditForm(req, res) {
 
 export async function createPost(req, res) {
   try {
+    // Check if user is logged in
+    if(!req.session.user) {
+      return res.status(401).render("login.ejs", {
+        message: "Please login to create a post",
+        currentPage: "login",
+        user: null
+      });
+    }
     const newPost = await postModel.createPost(req.body); // Create a new post using the request body
     res.redirect(`/posts/${newPost.id}`); // Redirect to the newly created post
   } catch (error) {
@@ -290,6 +311,7 @@ export async function createPost(req, res) {
       error: "Failed to create post",
       formData: req.body,
       currentPage: "createPost",
+      user: req.session.user || null
     });
   }
 }
@@ -299,17 +321,39 @@ export async function updatePost(req, res) {
   const { id } = req.params;
 
   try {
-    const updatedPost = await postModel.updatePost(id, req.body); // Update the post using the request body
+    // Check if user is logged in
+    if (!req.session.user) {
+      return res.status(401).render("login.ejs", {
+        message: "Please log in to update a post",
+        currentPage: "login",
+        user: null
+      });
+    }
+
+    const updatedPost = await postModel.updatePost(id, req.body, req.session.user.id); // Update the post using the request body
+
     if (!updatedPost) return res.status(404).send("Post not found");
+
     res.redirect(`/posts/${updatedPost.id}`); // Redirect to the updated post
   } catch (error) {
     console.error("Error updating post:", error);
+
+    // Handle authorization error
+    if (error.message === 'You are not authorized to update this post') {
+      return res.status(403).render("error.ejs", {
+        message: error.message,
+        currentPage: "error",
+        user: req.session.user || null
+      });
+    }
+
     res.status(500).render("editForm.ejs", {
       error: "Failed to update post",
       formData: req.body,
       postId: id,
       currentPage: "editPost",
       cleanMarkdown,
+      user: req.session.user || null
     });
   }
 }
@@ -319,11 +363,29 @@ export async function deletePost(req, res) {
   const { id } = req.params;
 
   try {
-    const deletedPost = await postModel.deletePost(id); // Delete the post by ID
-    if (!deletedPost) return res.status(404).send("Post not found");
+    // Check if user is logged in
+    if (!req.session.user) {
+      return res.status(401).render("login.ejs", {
+        message: "Please log in to delete a post",
+        currentPage: "login",
+        user: null
+      });
+    }
+
+    const deletedAt = await postModel.deletePost(id, req.session.user.id); // Delete the post by ID
+    if (!deletedAt) return res.status(404).send("Post not found");
     res.redirect("/posts"); // Redirect to the posts page
   } catch (error) {
     console.error("Error deleting post:", error);
+
+    // Handle authorization error
+    if (error.message === "You are not authorised to delete this post!") {
+      return res.status(403).render("error.ejs", {
+        message: error.message,
+        currentPage: "error",
+        user: req.session.user || null
+      });
+    }
     res.status(500).send("Internal Server Error");
   }
 }
@@ -340,16 +402,48 @@ export async function getRecentPosts(req, res) {
       showReadMore: true, // Show "Read More" button
       isHyperlink: true, // Make it a hyperlink
       currentPage: "home", // Current page for navigation
-      cleanMarkdown
+      cleanMarkdown,
+      user: req.session.user || null
     });
   } catch (error) {
     console.error("Error fetching recent posts:", error);
-    res.status(500).send("Internal Server Error");
+ 
     res.render("index.ejs", {
       posts: [],
       currentPage: "home",
-      cleanMarkdown
+      cleanMarkdown,
+      user: res.session.user || null
     }); // Render with empty posts array
   }
 }
 
+// Get posts by current user
+export async function getMyPosts(req, res) {
+  try {
+    if (!req.session.user) {
+      return res.status(401).render("login.ejs", {
+        message: "Please log in to view your posts",
+        currentPage: "login",
+        user: null
+      });
+    }
+
+    const posts = await postModel.getPostsByUserId(req.session.user.id);
+    const categories = extractCategories(posts);
+
+    res.render("myPosts.ejs", {
+      posts: sortByRecentActivity(posts),
+      categories,
+      currentPage: "myPosts",
+      user: req.session.user,
+      cleanMarkdown
+    });
+  } catch (error) {
+    console.error("Error fetching user posts:", error);
+    res.status(500).render("error.ejs", {
+      message: "Error loading your posts",
+      currentPage: "error",
+      user: req.session.user || null
+    });
+  }
+}

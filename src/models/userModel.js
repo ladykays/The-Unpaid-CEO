@@ -85,7 +85,7 @@ export async function createUser(userData) {
 
     const result = await db.query(
       `INSERT INTO users (name, email, password)
-      VALUES ($1, $2, $3) RETURNING *`, [name, email, hashedPassword]
+      VALUES ($1, $2, $3) RETURNING id, name, email, created_at`, [name, email, hashedPassword]
     );
 
     const user = result.rows[0];
@@ -104,4 +104,4 @@ export async function createUser(userData) {
     console.log("Error creating user: ", err);
     throw err;
   }
-}
+};

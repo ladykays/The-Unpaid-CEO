@@ -1,5 +1,21 @@
-import { readContacts, writeContacts } from "../services/fileServices.js";
+//import { readContacts, writeContacts } from "../services/fileServices.js";
+import db from "../config/db.js";
 
+export async function contact() {
+  try {
+    const result = await db.query(
+      `INSERT INTO contacts (name, email, subject, message)
+      VALUES($1, $2, $3, $4) RETURNING *`, [name, email, subject, message]
+    );
+    return result.rows[0];
+  } catch (err) {
+    console.log("Error making submission: ", err);
+    throw err;
+  }
+  
+
+}
+/* 
 // Contact form submission handler
 export async function handleContactFormSubmission(contactData) {
   try {
@@ -18,4 +34,4 @@ export async function handleContactFormSubmission(contactData) {
     console.error("Error saving contact form data:", error);
   }
   
-}
+} */
