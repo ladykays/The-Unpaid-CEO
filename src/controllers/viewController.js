@@ -1,6 +1,20 @@
 import * as postModel from "../models/postModel.js";
-import { cleanMarkdown, sortByRecentActivity } from "../utils/contentUtils.js";
+import { 
+  cleanMarkdown, 
+  extractCategories, 
+  sortByRecentActivity } from "../utils/contentUtils.js";
 import { readResources } from "../services/fileServices.js";
+
+
+// Helper function to safely get user from session
+const getUser = (req) => {
+  try {
+    return req.session?.user || null;
+  } catch (error) {
+    console.error('Error getting user from session:', error);
+    return null;
+  }
+};
 
 // Homepage
 export async function home(req, res) {
@@ -21,7 +35,7 @@ export async function home(req, res) {
     res.render("index.ejs", {
       posts: [],
       currentPage: "home",
-      //user: req.session.user || null
+      user: req.session.user || null
     }); 
   }
 }
@@ -30,13 +44,16 @@ export async function home(req, res) {
 export function about(req, res) {
   res.render("about.ejs", { 
     currentPage: "about",
-    //user: req.session.user || null 
+    user: req.session.user || null 
   }); // Current page for navigation
 }
 
 // Contact page
 export function contact(req, res) {
-  res.render("contact.ejs", { currentPage: "contact" }); // Current page for navigation
+  res.render("contact.ejs", { 
+    currentPage: "contact",
+    user: req.session.user || null 
+  }); // Current page for navigation
 }
 
 // Resources page
@@ -47,7 +64,7 @@ export async function resources(req, res) {
     res.render("resources.ejs", { 
       resources,
       currentPage: "resources",
-      //user: req.session.user || null 
+      user: req.session.user || null 
     }); 
   } catch (error) {
     console.error('Error loading resources: ', error);
@@ -65,9 +82,27 @@ export function login(req, res) {
   res.render("login.ejs", { 
     currentPage: "login",
     user: null, 
-    message: null
+    message: req.query.message || null,
+    activeTab: "login",
+    formData: {}
   }); // Current page for navigation
-}
+};
+
+// Register
+export function register(req, res) {
+  // If user is already logged in, redirect to home
+  if (req.session.user) {
+    return res.redirect("/");
+  };
+  
+  res.render("login.ejs", { 
+    currentPage: "login",
+    user: null,
+    message: null,
+    activeTab: "signup",
+    formData: {}
+  });
+};
 
 // Create Post Form
 export function createPostForm(req, res) {
@@ -78,22 +113,36 @@ export function createPostForm(req, res) {
   
   res.render("createPostForm.ejs", { 
     currentPage: "createPost",
-    user: req.session.user 
+    user: req.session.user || null
   }); // Current page for navigation
 }
 
-// Register form
-export function registerForm(req, res) {
-  // If user is already logged in, redirect to home
-  if (req.session.user) {
-    return res.redirect("/");
+// All Posts Page
+export async function allPosts(req, res) {
+  try {
+    const posts = await postModel.getAllPosts();
+    const sortedPosts = sortByRecentActivity(posts);
+    const categories = extractCategories(posts);
+
+    res.render("posts.ejs", {
+      posts: sortedPosts,
+      categories,
+      activeCategory: null,
+      showActions: true,
+      showReadMore: false,
+      isHyperlink: true,
+      currentPage: "posts",
+      cleanMarkdown,
+      user: req.session.user || null
+    });
+  } catch (err) {
+    console.error("Error fetching posts:", error);
+    res.status(500).render("error.ejs", {
+      message: "Failed to load posts",
+      currentPage: "error",
+      user: req.session.user || null
+    });
   }
-  
-  res.render("register.ejs", { 
-    currentPage: "register",
-    user: null,
-    message: null
-  });
 }
 
 

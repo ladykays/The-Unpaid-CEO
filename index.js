@@ -106,11 +106,7 @@ function calculateReadingTime(content) {
   return excerpt;
 } */
 
-  // Function to get first 100 characters from the post content
-export function getExcerpt(content, length = 100) {  
-  const excerpt = content.length > length ? content.substring(0, length) + '...' : content; // Truncate content to the specified length
-  return excerpt;
-}
+
 
 /*  Routes */
   // Get Routes

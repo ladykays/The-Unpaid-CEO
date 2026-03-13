@@ -1,5 +1,5 @@
-import * as userModel from "../models/userModel";
-import * as postModel from "../models/postModel";
+import * as userModel from "../models/userModel.js";
+import * as postModel from "../models/postModel.js";
 import bcrypt from "bcrypt";
 
 // Handle user registration

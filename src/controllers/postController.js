@@ -8,7 +8,8 @@ import {
   calculateReadingTime,
   cleanMarkdown,
   getRelatedPosts,
-  slugifyCategory
+  slugifyCategory,
+  getExcerpt
 } from "../utils/contentUtils.js";
 
 

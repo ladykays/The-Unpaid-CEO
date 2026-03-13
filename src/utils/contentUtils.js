@@ -63,6 +63,12 @@ export function calculateReadingTime(content) {
   return readingTime;
 }
 
+// Function to get first 100 characters from the post content
+export function getExcerpt(content, length = 100) {  
+  const excerpt = content.length > length ? content.substring(0, length) + '...' : content; // Truncate content to the specified length
+  return excerpt;
+}
+
 // Sort posts by the most recent date (either createdAt or updatedAt)
 export function sortByRecentActivity(posts) {
   // Make a copy of the posts array so as not to change the original
