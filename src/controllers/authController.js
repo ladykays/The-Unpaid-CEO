@@ -5,10 +5,37 @@ import bcrypt from "bcrypt";
 // Handle user registration
 export async function register(req, res) {
   try {
-    const { name, email, password, confirmPassword } = req.body;
+    console.log("=== REGISTRATION ATTEMPT ===");
+    console.log("Request body:", req.body);
+    console.log("Content-Type:", req.headers['content-type']);
 
+    const { name, email, password, confirmPassword } = req.body;
+    console.log("Extracted fields:", { name, email, password, confirmPassword });
+
+
+    // Check each field individually to see which one is missing
+    const missingFields = [];
+    if (!name) missingFields.push('name');
+    if (!email) missingFields.push('email');
+    if (!password) missingFields.push('password');
+    if (!confirmPassword) missingFields.push('confirmPassword');
+    
+    if (missingFields.length > 0) {
+      console.log("Missing fields:", missingFields);
+      return res.status(400).render("login.ejs", {
+        error: `Missing fields: ${missingFields.join(', ')}`,
+        formData: {
+          ...req.body,
+          activeTab: "signup"
+        },
+        activeTab: "signup",
+        currentPage: "login",
+        user: null
+      });
+    }
+    
     // Validation
-    // Check if all fields have been entered
+    /* // Check if all fields have been entered
     if (!name || !email || !password || !confirmPassword) {
       return res.status(400).render("login.ejs", {
         error: "All fields are required",
@@ -20,7 +47,7 @@ export async function register(req, res) {
         currentPage: "login",
         user: null
       });
-    };
+    }; */
 
     // Check if password matches
     if (password !== confirmPassword) {
@@ -94,7 +121,12 @@ export async function register(req, res) {
 // Handle user login
 export async function login(req, res) {
   try {
+    console.log("Login request body:", req.body); // See what's actually being received
+    console.log("Content-Type:", req.headers['content-type']); // Check content type
+
     const { email, password } = req.body;
+    console.log("Extracted email:", email);
+    console.log("Extracted password:", password ? "[PRESENT]" : "[MISSING]");
 
   // Validation
   if (!email || !password) {
@@ -114,7 +146,7 @@ export async function login(req, res) {
 
   // Check if user is found
   if (!user) {
-    return res.status(401).render("login", {
+    return res.status(401).render("login.ejs", {
       error: "Invalid email or password",
       formData: {
         ...res.body,
@@ -146,7 +178,7 @@ export async function login(req, res) {
   req.session.user = {
     id: user.id,
     name: user.name,
-    eamil: user.email
+    email: user.email
   };
 
   // Redirect to previous page or home

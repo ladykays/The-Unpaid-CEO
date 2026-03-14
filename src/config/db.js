@@ -25,6 +25,4 @@ db.connect((err, client, release) => {
   }
 });
 
-export default {
-  query: (text, params) => db.query(text, params),
-};
+export default db;

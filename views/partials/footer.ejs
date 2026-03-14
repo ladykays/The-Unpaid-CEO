@@ -48,20 +48,38 @@
 
 <!-- Toggle function for the mobile menu visibility -->
 <script>
+  function toggleDropdown() {
+    const dropdown = document.getElementById('dropdownMenu');
+    dropdown.classList.toggle('hidden');
+  }
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('dropdownMenu');
+    const button = event.target.closest('button');
+    
+    if (!button || !button.closest('#profileDropdown')) {
+      dropdown.classList.add('hidden');
+    }
+  });
+
+  // Mobile menu toggle
   document.addEventListener('DOMContentLoaded', function() {
     const menuButton = document.getElementById('menuButton');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const menuIcon = document.getElementById('menuIcon');
-    const closeIcon = document.getElementById('closeIcon');
-    
-    menuButton.addEventListener('click', function() {
-      // Toggle menu visibility
-      mobileMenu.classList.toggle('hidden');
-      
-      // Toggle between menu and close icons
-      menuIcon.classList.toggle('hidden');
-      closeIcon.classList.toggle('hidden');
-    });
+    if (menuButton) {
+      menuButton.addEventListener('click', function() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+        
+        if (mobileMenu && menuIcon && closeIcon) {
+          mobileMenu.classList.toggle('hidden');
+          menuIcon.classList.toggle('hidden');
+          closeIcon.classList.toggle('hidden');
+        }
+      });
+    }
   });
 </script>
 </body>
+</html>

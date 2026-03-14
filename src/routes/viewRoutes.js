@@ -40,7 +40,7 @@ router.get('posts/edit/:id', authController.requireAuth, postController.getEditF
 // Form Submission Routes
 router.post('/signup', authController.register);
 router.post('/login', authController.login);
-router.post('/login', authController.logout);
+router.post('/logout', authController.logout);
 router.post('/posts/createPost', authController.requireAuth, postController.createPost); 
 router.post('/posts/update/:id', authController.requireAuth, postController.updatePost); 
 router.post('/posts/delete/:id', authController.requireAuth, postController.deletePost); // Delete Post
